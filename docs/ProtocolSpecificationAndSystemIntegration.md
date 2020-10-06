@@ -1172,7 +1172,7 @@ The CRC (Cyclical Redundancy Check) code is a 16-bit, little-endian integer. It 
 
 For PHYTOFY® RL, the CRC-16-IBM variant is used (also known as CRC-16-ANSI) - with the following generating polynomial representation:
 
-![x^16+x^12+x^5+1](https://render.githubusercontent.com/render/math?math=x^{16}+x^{12}+x^5+1)
+![x^16+x^12+x^5+1](https://render.githubusercontent.com/render/math?math=x^{16}%2Bx^{12}%2Bx^5%2B1)
 
 Note also that the protocol uses the normal representation (0x8005) with 0xFFFF as the initial value. For convenience, an optimized C# code implementing the CRC calculation is included below:
 
