@@ -1293,7 +1293,7 @@ As a statistical example, the average values and standard deviations for the M c
 | White         | 28.89284967                       | 1.000175193                                  |
 
 
-### Appendix D: Non-volatile Memory Specification
+### Appendix C: Non-volatile Memory Specification
 
 The PHYTOFY® RL fixture contains two non-volatile memory banks each of which is rated for a specific number of read/write cycles:
 
