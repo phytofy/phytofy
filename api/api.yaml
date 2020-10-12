@@ -1,0 +1,106 @@
+openapi: "3.0.0"
+info:
+  title: OSRAM PHYTOFY RL API
+  version: "1.0.0"
+servers:
+  - url: /api
+paths:
+  /get-serials:
+    get:
+      summary: Get Serials function
+      operationId: api.get_serials
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSerialsReply"
+  /import-schedules:
+    post:
+      summary: Import Schedules function
+      operationId: api.import_schedules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ImportSchedulesRequest"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ImportSchedulesReply"
+components:
+  schemas:
+    Serial:
+      description: Serial number of the fixture module
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    Serials:
+      description: Serial numbers of the fixture modules
+      type: array
+      items:
+        $ref: "#/components/schemas/Serial"
+    Level:
+      description: Level value
+      type: number
+      format: float
+      minimum: 0
+      maximum: 100
+    Levels:
+      description: Level values
+      type: array
+      minItems: 6
+      maxItems: 6
+      items:
+        $ref: "#/components/schemas/Level"
+    Time:
+      description: Time (Linux/UNIX epoch)
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    Schedule:
+      type: object
+      required:
+        - start
+        - stop
+        - levels
+        - serials
+      properties:
+        start:
+          $ref: "#/components/schemas/Time"
+        stop:
+          $ref: "#/components/schemas/Time"
+        levels:
+          $ref: "#/components/schemas/Levels"
+        serials:
+          $ref: "#/components/schemas/Serials"
+    Schedules:
+      type: array
+      items:
+        $ref: "#/components/schemas/Schedule"
+    GetSerialsReply:
+      type: object
+      required:
+        - serials
+      properties:
+        serials:
+          $ref: "#/components/schemas/Serials"
+    ImportSchedulesRequest:
+      type: object
+      required:
+        - schedules
+      properties:
+        schedules:
+          $ref: "#/components/schemas/Schedules"
+    ImportSchedulesReply:
+      type: object
+      properties:
+        error:
+          type: string

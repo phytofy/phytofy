@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright (c) 2020 OSRAM -->
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.0" width="1800" height="1800">
+<path d="M 900,1680 C 1340,1680 1630,1330 1620,900 C 1640,440 1320,120 900,120 C 480,120 170,440 180,900 C 170,1350 460,1700 900,1680 Z M 900,430 C 1160,420 1260,660 1260,900 C 1250,1120 1150,1360 900,1360 C 650,1360 530,1130 530,900 C 530,670 640,420 900,430" style="fill: #FE5000; fill-rule: evenodd; stroke: none;"/>
+</svg>

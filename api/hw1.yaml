@@ -1,0 +1,1431 @@
+openapi: "3.0.0"
+info:
+  title: PHYTOFY RL API v1
+  version: v1
+servers:
+  - url: /v1
+paths:
+  /set-module-calibration:
+    post:
+      summary: Set Module Calibration function
+      operationId: api1.set_module_calibration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetModuleCalibrationRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-module-calibration:
+    post:
+      summary: Get Module Calibration function
+      operationId: api1.get_module_calibration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetModuleCalibrationRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetModuleCalibrationReplyV1"
+  /set-serial-number:
+    post:
+      summary: Set Serial Number function
+      operationId: api1.set_serial_number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetSerialNumberRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-serial-number:
+    post:
+      summary: Get Serial Number function
+      operationId: api1.get_serial_number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetSerialNumberRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSerialNumberReplyV1"
+  /set-short-address:
+    post:
+      summary: Set Short Address function
+      operationId: api1.set_short_address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetShortAddressRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-short-address:
+    post:
+      summary: Get Short Address function
+      operationId: api1.get_short_address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetShortAddressRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetShortAddressReplyV1"
+  /set-group-id:
+    post:
+      summary: Set Group ID function
+      operationId: api1.set_group_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetGroupIDRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-group-id:
+    post:
+      summary: Get Group ID function
+      operationId: api1.get_group_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetGroupIDRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetGroupIDReplyV1"
+  /set-fixture-info:
+    post:
+      summary: Set Fixture Info function
+      operationId: api1.set_fixture_info
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetFixtureInfoRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-fixture-info:
+    post:
+      summary: Get Fixture Info function
+      operationId: api1.get_fixture_info
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetFixtureInfoRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetFixtureInfoReplyV1"
+  /set-time-reference:
+    post:
+      summary: Set Time Reference function
+      operationId: api1.set_time_reference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetTimeReferenceRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-time-reference:
+    post:
+      summary: Get Time Reference function
+      operationId: api1.get_time_reference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetTimeReferenceRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetTimeReferenceReplyV1"
+  /set-leds-pwm:
+    post:
+      summary: Set LEDs function - % PWM
+      operationId: api1.set_leds_pwm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetLEDsPWMRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NoReplyV1"
+  /set-leds-irradiance:
+    post:
+      summary: Set LEDs function - Irradiance
+      operationId: api1.set_leds_irradiance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetLEDsIrradianceRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NoReplyV1"
+  /get-leds:
+    post:
+      summary: Get LEDs function
+      operationId: api1.get_leds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetLEDsRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetLEDsReplyV1"
+  /set-schedule-pwm:
+    post:
+      summary: Set Schedule function - % PWM
+      operationId: api1.set_schedule_pwm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetSchedulePWMRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /set-schedule-irradiance:
+    post:
+      summary: Set Schedule function - Irradiance
+      operationId: api1.set_schedule_irradiance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetScheduleIrradianceRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-schedule:
+    post:
+      summary: Get Schedule function
+      operationId: api1.get_schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetScheduleRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetScheduleReplyV1"
+  /get-schedule-count:
+    post:
+      summary: Get Schedule Count function
+      operationId: api1.get_schedule_count
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetScheduleCountRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetScheduleCountReplyV1"
+  /get-scheduling-state:
+    post:
+      summary: Get Scheduling State function
+      operationId: api1.get_scheduling_state
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetSchedulingStateRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSchedulingStateReplyV1"
+  /delete-schedule:
+    post:
+      summary: Delete Schedule function
+      operationId: api1.delete_schedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteScheduleRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /delete-all-schedules:
+    post:
+      summary: Delete All Schedules function
+      operationId: api1.delete_all_schedules
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteAllSchedulesRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /stop-scheduling:
+    post:
+      summary: Stop Scheduling function
+      operationId: api1.stop_scheduling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StopSchedulingRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /resume-scheduling:
+    post:
+      summary: Resume Scheduling function
+      operationId: api1.resume_scheduling
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResumeSchedulingRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /set-illuminance-configuration:
+    post:
+      summary: Set Illuminance Configuration function
+      operationId: api1.set_illuminance_configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetIlluminanceConfigurationRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV1"
+  /get-illuminance-configuration:
+    post:
+      summary: Get Illuminance Configuration function
+      operationId: api1.get_illuminance_configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetIlluminanceConfigurationRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetIlluminanceConfigurationReplyV1"
+  /get-module-temperature:
+    post:
+      summary: Get Module Temperature function
+      operationId: api1.get_module_temperature
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetModuleTemperatureRequestV1"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetModuleTemperatureReplyV1"
+  /get-serials:
+    get:
+      summary: Get Serials function
+      operationId: api1.get_serials
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSerialsReplyV1"
+components:
+  schemas:
+    HeaderV1:
+      description: Header of the Phytofy v1 reply
+      type: object
+      required:
+        - client_ipv4
+        - sequence_number
+        - rs485_address
+        - function_code
+      properties:
+        client_ipv4:
+          type: array
+          minItems: 4
+          maxItems: 4
+          items:
+            type: integer
+            format: int32
+            minimum: 0
+            maximum: 256
+        sequence_number:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 4294967295
+        rs485_address:
+          $ref: "#/components/schemas/ShortAddressV1"
+        function_code:
+          type: integer
+          enum: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 200, 201]
+    SerialV1:
+      description: Serial number of the fixture (0 is interpreted as broadcast)
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    ModuleIDV1:
+      description: Module ID on a fixture - it can be 0 or 1
+      type: integer
+      enum: [0, 1]
+    CalibrationValueV1:
+      description: Calibration value (a, b or M) - it is a 32-bit floating point value
+      type: number
+      format: float
+    CalibrationEntryV1:
+      description: Calibration entry for a single channel
+      type: object
+      required:
+        - coefficient_a
+        - coefficient_b
+        - coefficient_m
+      properties:
+        coefficient_a:
+          $ref: "#/components/schemas/CalibrationValueV1"
+        coefficient_b:
+          $ref: "#/components/schemas/CalibrationValueV1"
+        coefficient_m:
+          $ref: "#/components/schemas/CalibrationValueV1"
+    CalibrationV1:
+      description: Calibration of a dingle module
+      type: array
+      minItems: 6
+      maxItems: 6
+      items:
+        $ref: "#/components/schemas/CalibrationEntryV1"
+    ShortAddressV1:
+      description: Short address used behind the Moxa adapters
+      type: integer
+      minimum: 0
+      maximum: 255
+    GroupIDV1:
+      description: Group ID of the fixture
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    VersionV1:
+      description: Version number
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    MaxIrradianceV1:
+      description: Max irradiance value
+      type: number
+      format: float
+    UNIXTimeV1:
+      description: Time reference (Linux/UNIX epoch)
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    ScheduleIDV1:
+      description: Schedule ID
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    ScheduleKeyV1:
+      description: Schedule search key - ID or index
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
+    ScheduleKeyTypeV1:
+      description: Schedule search key type - 0 for a schedule ID, 1 for a schedule index
+      type: integer
+      enum: [0, 1]
+    ScheduleCountV1:
+      description: Schedule count
+      type: integer
+      format: int32
+      minimum: 0
+      maximum: 200
+    SchedulingStateV1:
+      description: Scheduling state - 0 for scheduling stopped, 1 for running with no schedule, 2 - for running with schedule
+      type: integer
+      enum: [0, 1, 2]
+    IlluminanceConfigurationV1:
+      description: Illuminance configuration
+      type: number
+      format: float
+    ConfigV1:
+      description: Configuration bits - bit 0 enables module 1, bit 1 enables module 2, bit 2 indicates if channels is expressed in percentage of power or irradiance
+      type: integer
+      format: int32
+      enum: [0, 1, 2, 3, 4, 5, 6, 7]
+    LevelValuePWMV1:
+      description: Level value - % PWM
+      format: int64
+      minimum: 0
+      maximum: 100
+    LevelValueIrradianceV1:
+      description: Level value - Irradiance
+      type: number
+      format: float
+    TemperatureV1:
+      description: Temperature value in degrees Celsius
+      type: number
+      format: float
+    GenericReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GenericPayloadV1"
+    GenericPayloadV1:
+      type: object
+      required:
+        - ack
+      properties:
+        ack:
+          type: boolean
+        error_code:
+          type: integer
+          minimum: 0
+          maximum: 255
+    SetModuleCalibrationRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - module_id
+            - calibration
+          properties:
+            module_id:
+              $ref: "#/components/schemas/ModuleIDV1"
+            calibration:
+              $ref: "#/components/schemas/CalibrationV1"
+    GetModuleCalibrationRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - module_id
+          properties:
+            module_id:
+              $ref: "#/components/schemas/ModuleIDV1"
+    GetModuleCalibrationReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetModuleCalibrationPayloadV1"
+    GetModuleCalibrationPayloadV1:
+      type: object
+      required:
+        - module_id
+        - calibration
+      properties:
+        module_id:
+          $ref: "#/components/schemas/ModuleIDV1"
+        calibration:
+          $ref: "#/components/schemas/CalibrationV1"
+    SetSerialNumberRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - serial
+          properties:
+            serial:
+              $ref: "#/components/schemas/SerialV1"
+    GetSerialNumberRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - random_backoff
+          properties:
+            random_backoff:
+              type: boolean
+    GetSerialNumberReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetSerialNumberPayloadV1"
+    GetSerialNumberPayloadV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    SetShortAddressRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - serial
+            - short_address
+          properties:
+            serial:
+              $ref: "#/components/schemas/SerialV1"
+            short_address:
+              $ref: "#/components/schemas/ShortAddressV1"
+    GetShortAddressRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - serial
+          properties:
+            serial:
+              $ref: "#/components/schemas/SerialV1"
+    GetShortAddressReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetShortAddressPayloadV1"
+    GetShortAddressPayloadV1:
+      type: object
+      required:
+        - short_address
+        - serial
+      properties:
+        short_address:
+          $ref: "#/components/schemas/ShortAddressV1"
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    SetGroupIDRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - group_id
+          properties:
+            group_id:
+              $ref: "#/components/schemas/GroupIDV1"
+    GetGroupIDRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetGroupIDReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetGroupIDPayloadV1"
+    GetGroupIDPayloadV1:
+      type: object
+      required:
+        - group_id
+      properties:
+        group_id:
+          $ref: "#/components/schemas/GroupIDV1"
+    SetFixtureInfoRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - fw_version
+            - hw_version
+          properties:
+            fw_version:
+              $ref: "#/components/schemas/VersionV1"
+            hw_version:
+              $ref: "#/components/schemas/VersionV1"
+    GetFixtureInfoRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetFixtureInfoReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetFixtureInfoPayloadV1"
+    GetFixtureInfoPayloadV1:
+      type: object
+      required:
+        - fw_version
+        - hw_version
+        - max
+      properties:
+        fw_version:
+          $ref: "#/components/schemas/VersionV1"
+        hw_version:
+          $ref: "#/components/schemas/VersionV1"
+        max:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/MaxIrradianceV1"
+    SetTimeReferenceRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - linux_epoch
+          properties:
+            linux_epoch:
+              $ref: "#/components/schemas/UNIXTimeV1"
+    GetTimeReferenceRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetTimeReferenceReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetTimeReferencePayloadV1"
+    GetTimeReferencePayloadV1:
+      type: object
+      required:
+        - linux_epoch
+      properties:
+        linux_epoch:
+          $ref: "#/components/schemas/UNIXTimeV1"
+    SetLEDsPWMRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - config
+            - levels
+          properties:
+            config:
+              $ref: "#/components/schemas/ConfigV1"
+            levels:
+              type: array
+              minItems: 6
+              maxItems: 6
+              items:
+                $ref: "#/components/schemas/LevelValuePWMV1"
+    SetLEDsIrradianceRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - config
+            - levels
+          properties:
+            config:
+              $ref: "#/components/schemas/ConfigV1"
+            levels:
+              type: array
+              minItems: 6
+              maxItems: 6
+              items:
+                $ref: "#/components/schemas/LevelValueIrradianceV1"
+    NoReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+    GetLEDsRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - config
+          properties:
+            config:
+              $ref: "#/components/schemas/ConfigV1"
+    GetLEDsReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetLEDsPayloadV1"
+    GetLEDsPayloadV1:
+      type: object
+      required:
+        - config
+        - levels
+      properties:
+        config:
+          $ref: "#/components/schemas/ConfigV1"
+        levels:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/LevelValueIrradianceV1"
+    SetSchedulePWMRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - schedule_id
+            - start
+            - stop
+            - config
+            - levels
+          properties:
+            schedule_id:
+              $ref: "#/components/schemas/ScheduleIDV1"
+            start:
+              $ref: "#/components/schemas/UNIXTimeV1"
+            stop:
+              $ref: "#/components/schemas/UNIXTimeV1"
+            config:
+              $ref: "#/components/schemas/ConfigV1"
+            levels:
+              type: array
+              minItems: 6
+              maxItems: 6
+              items:
+                $ref: "#/components/schemas/LevelValuePWMV1"
+    SetScheduleIrradianceRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - schedule_id
+            - start
+            - stop
+            - config
+            - levels
+          properties:
+            schedule_id:
+              $ref: "#/components/schemas/ScheduleIDV1"
+            start:
+              $ref: "#/components/schemas/UNIXTimeV1"
+            stop:
+              $ref: "#/components/schemas/UNIXTimeV1"
+            config:
+              $ref: "#/components/schemas/ConfigV1"
+            levels:
+              type: array
+              minItems: 6
+              maxItems: 6
+              items:
+                $ref: "#/components/schemas/LevelValueIrradianceV1"
+    GetScheduleRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - schedule_key
+            - schedule_key_type
+          properties:
+            schedule_key:
+              $ref: "#/components/schemas/ScheduleKeyV1"
+            schedule_key_type:
+              $ref: "#/components/schemas/ScheduleKeyTypeV1"
+    GetScheduleReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetSchedulePayloadV1"
+    GetSchedulePayloadV1:
+      type: object
+      required:
+        - schedule_id
+        - start
+        - stop
+        - config
+        - levels
+      properties:
+        schedule_id:
+          $ref: "#/components/schemas/ScheduleIDV1"
+        start:
+          $ref: "#/components/schemas/UNIXTimeV1"
+        stop:
+          $ref: "#/components/schemas/UNIXTimeV1"
+        config:
+          $ref: "#/components/schemas/ConfigV1"
+        levels:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/LevelValueIrradianceV1"
+    GetScheduleCountRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetScheduleCountReplyV1:
+      type: array
+      items:
+        type: object
+        required:
+          - error
+          - header
+          - payload
+        properties:
+          error:
+            type: string
+          header:
+            $ref: "#/components/schemas/HeaderV1"
+          payload:
+            $ref: "#/components/schemas/GetScheduleCountPayloadV1"
+    GetScheduleCountPayloadV1:
+      type: object
+      required:
+        - schedule_count
+      properties:
+        schedule_count:
+          $ref: "#/components/schemas/ScheduleCountV1"
+    GetSchedulingStateRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetSchedulingStateReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetSchedulingStatePayloadV1"
+    GetSchedulingStatePayloadV1:
+      type: object
+      required:
+        - scheduling_state
+        - schedule_id
+      properties:
+        scheduling_state:
+          $ref: "#/components/schemas/SchedulingStateV1"
+        schedule_id:
+          $ref: "#/components/schemas/ScheduleIDV1"
+    DeleteScheduleRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - schedule_id
+          properties:
+            schedule_id:
+              $ref: "#/components/schemas/ScheduleIDV1"
+    DeleteAllSchedulesRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    StopSchedulingRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    ResumeSchedulingRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    SetIlluminanceConfigurationRequestV1:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+        payload:
+          type: object
+          required:
+            - configuration
+          properties:
+            configuration:
+              type: array
+              minItems: 6
+              maxItems: 6
+              items:
+                $ref: "#/components/schemas/IlluminanceConfigurationV1"
+    GetIlluminanceConfigurationRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetIlluminanceConfigurationReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetIlluminanceConfigurationPayloadV1"
+    GetIlluminanceConfigurationPayloadV1:
+      type: object
+      required:
+        - configuration
+      properties:
+        configuration:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/IlluminanceConfigurationV1"
+    GetModuleTemperatureRequestV1:
+      type: object
+      required:
+        - serial
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV1"
+    GetModuleTemperatureReplyV1:
+      type: object
+      properties:
+        error:
+          type: string
+        result:
+          type: string
+        replies:
+          type: array
+          items:
+            type: object
+            required:
+              - header
+              - payload
+            properties:
+              header:
+                $ref: "#/components/schemas/HeaderV1"
+              payload:
+                $ref: "#/components/schemas/GetModuleTemperaturePayloadV1"
+    GetModuleTemperaturePayloadV1:
+      type: object
+      required:
+        - temperatures_0
+        - temperatures_1
+      properties:
+        temperatures_0:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/TemperatureV1"
+    GetSerialsReplyV1:
+      type: object
+      required:
+        - serials
+      properties:
+        serials:
+          type: array
+          items:
+            $ref: "#/components/schemas/SerialV1"
+    ScheduleV1:
+      type: object
+      required:
+        - start
+        - stop
+        - levels
+        - serials
+      properties:
+        start:
+          $ref: "#/components/schemas/UNIXTimeV1"
+        stop:
+          $ref: "#/components/schemas/UNIXTimeV1"
+        levels:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            $ref: "#/components/schemas/LevelValueIrradianceV1"
+        serials:
+          type: array
+          items:
+            $ref: "#/components/schemas/SerialV1"

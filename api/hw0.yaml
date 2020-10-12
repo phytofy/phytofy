@@ -1,0 +1,154 @@
+openapi: "3.0.0"
+info:
+  title: PHYTOFY RL API v0 (DEPRECATED)
+  version: v0
+servers:
+  - url: /v0
+paths:
+  /set-leds:
+    post:
+      summary: Set LEDs function
+      operationId: api0.set_leds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetLEDsRequestV0"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV0"
+  /schedule-add:
+    post:
+      summary: Add Schedule function
+      operationId: api0.schedule_add
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScheduleAddRequestV0"
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV0"
+  /schedules-clear:
+    post:
+      summary: Clear Schedules function
+      operationId: api0.schedules_clear
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericReplyV0"
+  /get-serials:
+    get:
+      summary: Get Serials function
+      operationId: api0.get_serials
+      responses:
+        default:
+          description: Replies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetSerialsReplyV0"
+components:
+  schemas:
+    SerialV0:
+      description: Serial number of the fixture module
+      type: integer
+      format: int32
+    SerialsV0:
+      description: Serial numbers of the fixture modules
+      type: array
+      items:
+        $ref: "#/components/schemas/SerialV0"
+    LevelValueV0:
+      description: Level value
+      type: number
+      format: double
+      minimum: 0
+      maximum: 100
+    LevelValuesV0:
+      description: Level values
+      type: array
+      maxItems: 7
+      items:
+        $ref: "#/components/schemas/LevelValueV0"
+    UNIXTimeV0:
+      description: Time reference (Linux/UNIX epoch)
+      type: integer
+      format: int32
+    GenericReplyV0:
+      type: object
+      properties:
+        error:
+          type: string
+    SetLEDsRequestV0:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV0"
+        payload:
+          type: object
+          required:
+            - levels
+          properties:
+            levels:
+              $ref: "#/components/schemas/LevelValuesV0"
+    ScheduleAddRequestV0:
+      type: object
+      required:
+        - serial
+        - payload
+      properties:
+        serial:
+          $ref: "#/components/schemas/SerialV0"
+        payload:
+          type: object
+          required:
+            - start
+            - stop
+            - levels
+          properties:
+            start:
+              $ref: "#/components/schemas/UNIXTimeV0"
+            stop:
+              $ref: "#/components/schemas/UNIXTimeV0"
+            levels:
+              $ref: "#/components/schemas/LevelValuesV0"
+    GetSerialsReplyV0:
+      type: object
+      required:
+        - serials
+      properties:
+        serials:
+          $ref: "#/components/schemas/SerialsV0"
+    ScheduleV0:
+      type: object
+      required:
+        - start
+        - stop
+        - levels
+        - serials
+      properties:
+        start:
+          $ref: "#/components/schemas/UNIXTimeV0"
+        stop:
+          $ref: "#/components/schemas/UNIXTimeV0"
+        levels:
+          $ref: "#/components/schemas/LevelValuesV0"
+        serials:
+          $ref: "#/components/schemas/SerialsV0"
