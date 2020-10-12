@@ -1,5 +1,8 @@
 // Copyright (c) 2020 OSRAM; Licensed under the MIT license.
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
+
 import * as url from "url";
 import { Configuration } from "./configuration";
 
