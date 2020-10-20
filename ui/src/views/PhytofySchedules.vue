@@ -11,10 +11,18 @@
                 <v-btn @click="createSchedule" :disabled="!ready">Create</v-btn>
               </v-col>
               <v-col lg="2" sm="4">
-                <v-btn @click="editSchedule" :disabled="!ready || selectedNotOneSchedule">Edit</v-btn>
+                <v-btn
+                  @click="editSchedule"
+                  :disabled="!ready || selectedNotOneSchedule"
+                  >Edit</v-btn
+                >
               </v-col>
               <v-col lg="2" sm="4">
-                <v-btn @click="deleteSchedules" :disabled="!ready || selectedNoSchedule">Delete</v-btn>
+                <v-btn
+                  @click="deleteSchedules"
+                  :disabled="!ready || selectedNoSchedule"
+                  >Delete</v-btn
+                >
               </v-col>
               <v-col lg="2" sm="4">
                 <input
@@ -24,13 +32,14 @@
                   id="upload"
                   @change="importSchedules"
                 />
-                <v-btn
-                  @click="$refs.upload.click()"
-                  :disabled="!ready"
-                >{{ !ready ? 'Please Wait' : dragging ? 'Drop CSV' : 'Import CSV' }}</v-btn>
+                <v-btn @click="$refs.upload.click()" :disabled="!ready">{{
+                  !ready ? "Please Wait" : dragging ? "Drop CSV" : "Import CSV"
+                }}</v-btn>
               </v-col>
               <v-col lg="2" sm="4">
-                <v-btn @click="exportSchedules" :disabled="!ready">Export CSV</v-btn>
+                <v-btn @click="exportSchedules" :disabled="!ready"
+                  >Export CSV</v-btn
+                >
               </v-col>
               <v-col lg="2" sm="4">
                 <v-btn @click="applySchedules" :disabled="!ready">Apply</v-btn>
@@ -60,7 +69,12 @@
       @cancel="cancelSchedule"
       @save="saveSchedule"
     />
-    <v-snackbar v-model="error" color="error" :multi-line="true" :timeout="60000">
+    <v-snackbar
+      v-model="error"
+      color="error"
+      :multi-line="true"
+      :timeout="60000"
+    >
       {{ errorMessage }}
       <v-btn @click="error = false">Dismiss</v-btn>
     </v-snackbar>
