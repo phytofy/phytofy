@@ -32,14 +32,26 @@
                           :rules="[datesRule]"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="$props.value.startDate" @change="validate" scrollable>
+                      <v-date-picker
+                        v-model="$props.value.startDate"
+                        @change="validate"
+                        scrollable
+                      >
                         <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="startDateMenuVisible = false">Cancel</v-btn>
                         <v-btn
                           text
                           color="primary"
-                          @click="$refs.startDateMenuRef.save($props.value.startDate)"
-                        >OK</v-btn>
+                          @click="startDateMenuVisible = false"
+                          >Cancel</v-btn
+                        >
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="
+                            $refs.startDateMenuRef.save($props.value.startDate)
+                          "
+                          >OK</v-btn
+                        >
                       </v-date-picker>
                     </v-menu>
                     <v-menu
@@ -62,14 +74,26 @@
                           :rules="[datesRule]"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="$props.value.stopDate" @change="validate" scrollable>
+                      <v-date-picker
+                        v-model="$props.value.stopDate"
+                        @change="validate"
+                        scrollable
+                      >
                         <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="stopDateMenuVisible = false">Cancel</v-btn>
                         <v-btn
                           text
                           color="primary"
-                          @click="$refs.stopDateMenuRef.save($props.value.stopDate)"
-                        >OK</v-btn>
+                          @click="stopDateMenuVisible = false"
+                          >Cancel</v-btn
+                        >
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="
+                            $refs.stopDateMenuRef.save($props.value.stopDate)
+                          "
+                          >OK</v-btn
+                        >
                       </v-date-picker>
                     </v-menu>
                     <v-menu
@@ -99,12 +123,20 @@
                         format="24hr"
                       >
                         <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="startTimeMenuVisible = false">Cancel</v-btn>
                         <v-btn
                           text
                           color="primary"
-                          @click="$refs.startTimeMenuRef.save($props.value.startTime)"
-                        >OK</v-btn>
+                          @click="startTimeMenuVisible = false"
+                          >Cancel</v-btn
+                        >
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="
+                            $refs.startTimeMenuRef.save($props.value.startTime)
+                          "
+                          >OK</v-btn
+                        >
                       </v-time-picker>
                     </v-menu>
                     <v-menu
@@ -134,12 +166,20 @@
                         format="24hr"
                       >
                         <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="stopTimeMenuVisible = false">Cancel</v-btn>
                         <v-btn
                           text
                           color="primary"
-                          @click="$refs.stopTimeMenuRef.save($props.value.stopTime)"
-                        >OK</v-btn>
+                          @click="stopTimeMenuVisible = false"
+                          >Cancel</v-btn
+                        >
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="
+                            $refs.stopTimeMenuRef.save($props.value.stopTime)
+                          "
+                          >OK</v-btn
+                        >
                       </v-time-picker>
                     </v-menu>
                     <v-select
