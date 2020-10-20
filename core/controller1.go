@@ -205,12 +205,12 @@ func (controller *ctrl1Controller) ctrl1ImportSchedules(schedules []schdlAttache
 			return fail
 		}
 		for scheduleID, schedule := range aggregated[serial] {
-			config := pckt1UsePWM | pckt1LEDsModule0Enabled | pckt1LEDsModule1Enabled
-			var levels [6]uint32
+			config := pckt1UseIrradiance | pckt1LEDsModule0Enabled | pckt1LEDsModule1Enabled
+			var levels [6]float32
 			for i := 0; i < 6; i++ {
-				levels[i] = uint32(schedule.Levels[i])
+				levels[i] = float32(schedule.Levels[i])
 			}
-			payload := &pckt1CommandPayloadSetSchedulePWM{pckt1CommandPayloadSetSchedulePreamble{uint32(scheduleID), schedule.Start, schedule.Stop, config}, levels}
+			payload := &pckt1CommandPayloadSetScheduleIrradiance{pckt1CommandPayloadSetSchedulePreamble{uint32(scheduleID), schedule.Start, schedule.Stop, config}, levels}
 			repliesSet, failSet := controller.ctrl1Dispatch(serial, pckt1FunctionCodeSetSchedule, payload)
 			if fail := dptr1CheckResult(pckt1FunctionCodeSetSchedule, repliesSet, failSet); fail != nil {
 				fail := fmt.Errorf("Failed to set schedule %d for device with serial number %d (%s)", scheduleID, serial, fail)
