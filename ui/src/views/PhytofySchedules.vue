@@ -83,7 +83,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { csvParseRows } from "d3-dsv"; // Can also use Plotly.d3.csv.parseRows
+import Plotly from "plotly.js";
 import PhytofySchedule from "@/components/PhytofySchedule.vue";
 import { v4 as uuidv4 } from "uuid";
 import * as api from "../api";
@@ -110,15 +110,18 @@ const blankSchedule = (): Schedule => ({
 });
 
 const unpackSchedule = (entry: string[]): Schedule[] => {
-  return entry.slice(10, entry.length).map((serial) => ({
-    id: uuidv4(),
-    startDate: entry[0],
-    stopDate: entry[1],
-    startTime: entry[2],
-    stopTime: entry[3],
-    levels: entry.slice(4, 10).map((level) => Number(level)),
-    serial: Number(serial),
-  }));
+  return entry
+    .slice(10, entry.length)
+    .filter((serial) => serial !== "")
+    .map((serial) => ({
+      id: uuidv4(),
+      startDate: entry[0],
+      stopDate: entry[1],
+      startTime: entry[2],
+      stopTime: entry[3],
+      levels: entry.slice(4, 10).map((level) => Number(level)),
+      serial: Number(serial),
+    }));
 };
 
 const packSchedule = (schedule: Schedule): string => {
@@ -319,7 +322,7 @@ export default Vue.extend({
         csv += reader.result;
         counter++;
         if (counter == files.length) {
-          this.replaceSchedules(csvParseRows(csv));
+          this.replaceSchedules(Plotly.d3.csv.parseRows(csv));
         }
       };
       files.forEach((entry: File) => {

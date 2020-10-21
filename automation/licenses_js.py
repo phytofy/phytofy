@@ -111,6 +111,11 @@ def extract_js_package_license(packages, package, cache, headers=None):
             package_license = replacements[packages[package]['name']]
             template = licenses.github_license(package_license, cache, headers)
         else:
+            replacements = {
+                '@mapbox/jsonlint-lines-primitives': 'MIT',
+                'weak-map': 'MIT'}
+            if packages[package]['name'] in replacements:
+                package_license = replacements[packages[package]['name']]
             template = licenses.github_license(package_license, cache, headers)
         owner = packages[package]['owner']
         text.append(template.replace(

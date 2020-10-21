@@ -1,11 +1,23 @@
 <!-- Copyright (c) 2020 OSRAM; Licensed under the MIT license. -->
 
 <template>
-  <v-navigation-drawer v-bind:value="value" v-on:input="setDrawer" app clipped :mini-variant="true">
+  <v-navigation-drawer
+    v-bind:value="value"
+    v-on:input="setDrawer"
+    app
+    clipped
+    :mini-variant="true"
+  >
     <v-list dense>
       <v-tooltip right>
         <template v-slot:activator="{ on, attrs }">
-          <v-list-item to="/schedules" active-class="primary--text" ripple v-bind="attrs" v-on="on">
+          <v-list-item
+            to="/schedules"
+            active-class="primary--text"
+            ripple
+            v-bind="attrs"
+            v-on="on"
+          >
             <v-list-item-action>
               <v-icon>mdi-calendar</v-icon>
             </v-list-item-action>
@@ -13,6 +25,23 @@
           </v-list-item>
         </template>
         <span>Schedules</span>
+      </v-tooltip>
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-list-item
+            to="/simulator"
+            active-class="primary--text"
+            ripple
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-list-item-action>
+              <v-icon>mdi-map-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>Simulator</v-list-item-title>
+          </v-list-item>
+        </template>
+        <span>Simulator</span>
       </v-tooltip>
     </v-list>
     <template v-slot:append>
