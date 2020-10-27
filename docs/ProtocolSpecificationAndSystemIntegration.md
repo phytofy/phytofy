@@ -17,7 +17,7 @@ The authors would also like to acknowledge and express the gratitude to everyone
 
 The system architecture (see Figure 1) can best be described as a set of four layers which include: fixtures, adapters, network and application.
 
-![System Architecture Diagram](01.System_Architecture_Diagram.png)
+![System Architecture Diagram](protocol/01.System_Architecture_Diagram.png)
 **<center>Figure 1. System Architecture Diagram</center>**
 
 
@@ -64,7 +64,7 @@ While the Moxa NPort® 5150A adapter features only one RS-485 port (depicted by 
 * with the Moxa NPort® 5400 Series it is possible to have four RS-485 ports (depicted by Moxa Adapter N on Figure 1)
 * with the Moxa NPort® 5600 Series it is possible to have eight or sixteen RS-485 ports
 
-![Moxa NPort® Device Web Interface](02.Moxa_NPort_Device_Web_Interface.png)
+![Moxa NPort® Device Web Interface](protocol/02.Moxa_NPort_Device_Web_Interface.png)
 **<center>Figure 2. Moxa NPort® Device Web Interface</center>**
 
 
@@ -77,7 +77,7 @@ The controlling devices (such as PC and laptop computers, smartphones, tablets, 
 
 The high-level control & operation of the system is depicted in Figure 3. The details for each of the blocks can be found in respective paragraphs.
 
-![High-level Control & Operation Activity Diagram](03.High-level_Control_and_Operation_Activity_Diagram.png)
+![High-level Control & Operation Activity Diagram](protocol/03.High-level_Control_and_Operation_Activity_Diagram.png)
 **<center>Figure 3. High-level Control & Operation Activity Diagram</center>**
 
 
@@ -122,7 +122,7 @@ Each of the RS-485 ports on a Moxa adapter corresponds to one TCP port exposed b
 
 Note: The Moxa NPort® adapter discovery must be repeated every time the network topology changes or an adapter is added or removed from the network.
 
-![Moxa NPort® Adapter Discovery Diagram](04.Moxa_NPort_Adapter_Discovery_Diagram.png)
+![Moxa NPort® Adapter Discovery Diagram](protocol/04.Moxa_NPort_Adapter_Discovery_Diagram.png)
 **<center>Figure 4. Moxa NPort® Adapter Discovery Diagram</center>**
 
 
@@ -1119,7 +1119,7 @@ The commissioning step must be repeated every time for the following cases:
 1. There are brand new, unassigned fixtures replaced or added to a RS-485 port
 2. One or more fixtures were connected to a different RS-485 port
 
-![PHYTOFY® RL Fixture Discovery & Commissioning Diagram](05.PHYTOFY_RL_Fixture_Discovery_and_Commissioning_Diagram.png)
+![PHYTOFY® RL Fixture Discovery & Commissioning Diagram](protocol/05.PHYTOFY_RL_Fixture_Discovery_and_Commissioning_Diagram.png)
 
 
 ### Real-time Lighting Control
