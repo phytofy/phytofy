@@ -92,7 +92,8 @@ RUN go get -d -v && \
     golint -set_exit_status ./... && \
     go get github.com/GeertJohan/go.rice/rice && \
     rice embed-go && \
-    CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o /app/phytofy-cli.windows-amd64.exe && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/phytofy-cli.linux-amd64 && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o /app/phytofy-cli.linux-arm32v7 && \
-    CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o /app/phytofy-cli.macos-amd64
+    mkdir /app/release && \
+    CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o /app/release/phytofy-cli.windows-amd64.exe && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/release/phytofy-cli.linux-amd64 && \
+    CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o /app/release/phytofy-cli.linux-arm32v7 && \
+    CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -o /app/release/phytofy-cli.macos-amd64
