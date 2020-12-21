@@ -38,7 +38,7 @@ jobs:
       - name: Uploading CLI Release
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
           RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
