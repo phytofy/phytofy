@@ -7,4 +7,4 @@ REAL=$(realpath "$SELF")
 BASE=$(dirname "$REAL")
 
 cd "$BASE/.."
-docker run --rm -v ${PWD}:/target phytofy-cli:latest cp /app/phytofy.exe /target/phytofy.exe
+docker run --rm -v ${PWD}:/target phytofy-cli:latest cp '/app/phytofy-cli*' /target/

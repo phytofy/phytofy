@@ -18,21 +18,30 @@ jobs:
           go get -u golang.org/x/lint/golint
           cd core
           $(which golint 2> /dev/null || echo /home/runner/go/bin/golint) -set_exit_status ./...
-      - name: CLI Build
+      - name: Tagging Version
+        id: version
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Building CLI
         if: startsWith(github.ref, 'refs/tags/')
         env:
           GH_API_USER: ${{ secrets.GH_API_USER }}
           GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
           /bin/sh automation/build.cli.sh
           /bin/sh automation/publish.cli.sh
-      - name: CLI Artifact
+          mkdir release
+          mv phytofy-cli.windows-amd64.exe release/phytofy-cli.windows-amd64.${RELEASE_VERSION}.exe
+          mv phytofy-cli.linux-amd64 release/phytofy-cli.linux-amd64.${RELEASE_VERSION}
+          mv phytofy-cli.linux-arm32v7 release/phytofy-cli.linux-arm32v7.${RELEASE_VERSION}
+          mv phytofy-cli.macos-amd64 release/phytofy-cli.macos-amd64.${RELEASE_VERSION}
+      - name: Uploading CLI Artifacts
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v2
         with:
-          name: phytofy.exe
-          path: phytofy.exe
-      - name: IoT Build
+          name: phytofy-cli
+          path: release/*
+      - name: Building IoT
         if: startsWith(github.ref, 'refs/tags/')
         env:
           REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
