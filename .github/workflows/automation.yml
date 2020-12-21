@@ -45,8 +45,8 @@ jobs:
           sudo apt-add-repository https://cli.github.com/packages
           sudo apt update
           sudo apt install gh
-          gh auth login --hostname github.com --with-token <(echo ${GH_API_TOKEN})
-          gh release create ${RELEASE_VERSION}
+          echo ${GH_API_TOKEN} | gh auth login --hostname github.com --with-token
+          echo ${RELEASE_VERSION} | gh release create ${RELEASE_VERSION}
           gh release upload ${RELEASE_VERSION} release/*
       - name: Building IoT
         if: startsWith(github.ref, 'refs/tags/')
