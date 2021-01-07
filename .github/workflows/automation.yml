@@ -28,6 +28,7 @@ jobs:
           GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
           RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
+          sed -i "s/0\.0\.0/${RELEASE_VERSION}/g" ui/package.json
           /bin/sh automation/build.cli.sh
           /bin/sh automation/publish.cli.sh
           mkdir release
@@ -57,7 +58,9 @@ jobs:
           VERSION_SEPARATOR: ${{ secrets.VERSION_SEPARATOR }}
           GH_API_USER: ${{ secrets.GH_API_USER }}
           GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
+          sed -i "s/0\.0\.0/${RELEASE_VERSION}/g" ui/package.json
           /bin/sh automation/build.iot.sh
           /bin/sh automation/publish.iot.sh
           rm /home/runner/.docker/config.json

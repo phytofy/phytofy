@@ -1,7 +1,7 @@
 {
   "name": "phytofy-ui",
   "description": "OSRAM PHYTOFY RL UI",
-  "version": "1.2.24",
+  "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "scripts": {
