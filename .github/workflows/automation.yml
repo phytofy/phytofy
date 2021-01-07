@@ -1,4 +1,4 @@
-name: Automation Script
+name: Automation Script - CLI & IoT
 
 on: [push]
 
@@ -49,6 +49,14 @@ jobs:
           echo ${GH_API_TOKEN} | gh auth login --hostname github.com --with-token
           echo ${RELEASE_VERSION} | gh release create ${RELEASE_VERSION}
           gh release upload ${RELEASE_VERSION} release/*
+      - name: Issuing Repository Dispatch
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GH_API_TOKEN }}
+          repository: ${{ github.repository }}
+          event-type: electron-wrapping
+          client-payload: '{"ref": "${{ github.ref }}", "release_version": "${{ steps.version.outputs.tag }}"}'
       - name: Building IoT
         if: startsWith(github.ref, 'refs/tags/')
         env:

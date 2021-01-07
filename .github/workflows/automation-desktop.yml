@@ -1,0 +1,35 @@
+name: Automation Script - Desktop
+
+on:
+  repository_dispatch:
+    types: [electron-wrapping]
+
+jobs:
+  pipeline:
+    name: Pipeline
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-11.0]
+        include:
+          - os: ubuntu-20.04
+            script_name: /bin/sh ./automation/desktop-ubuntu.sh
+          - os: windows-2019
+            script_name: .\automation\desktop-windows.ps1
+          - os: macos-11.0
+            script_name: /bin/sh ./automation/desktop-macos.sh
+    steps:
+      - name: Initiating
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - name: Preparing
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - name: Wrapping
+        env:
+          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_REPOSITORY: ${{ github.repository }}
+          RELEASE_VERSION: ${{ github.event.client_payload.release_version }}
+        run: ${{ matrix.script_name }}

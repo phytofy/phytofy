@@ -1,0 +1,76 @@
+{
+  "name": "osram-phytofy-rl-v1-ui",
+  "productName": "OSRAM - PHYTOFY RL v1 UI",
+  "version": "0.0.0",
+  "description": "OSRAM - PHYTOFY RL v1 UI",
+  "main": "main.js",
+  "scripts": {
+    "package-ubuntu": "electron-builder --publish never --linux",
+    "package-windows": "electron-builder --publish never --win --x64",
+    "package-macos": "electron-builder --publish never -m",
+    "start": "electron ."
+  },
+  "repository": "https://github.com/phytofy/phytofy",
+  "keywords": [
+    "OSRAM",
+    "PHYTOFY"
+  ],
+  "author": "OSRAM",
+  "license": "MIT",
+  "build": {
+    "productName": "OSRAM - PHYTOFY RL v1 UI",
+    "appId": "com.osram.Phytofy",
+    "files": [
+      "node_modules/",
+      "preload.js",
+      "main.js",
+      "main.map",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 150
+        },
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "deleteAppDataOnUninstall": true
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "appImage": {},
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "extraResources": [
+      {
+        "from": ".",
+        "to": "cli",
+        "filter": [
+          "**/phytofy-cli.exe"
+        ]
+      }
+    ]
+  },
+  "devDependencies": {
+    "electron": "^11.1.1"
+  }
+}
