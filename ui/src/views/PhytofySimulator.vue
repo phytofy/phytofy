@@ -1,14 +1,23 @@
 <template>
   <v-main>
     <v-card class="d-flex flex-column ma-0 pa-0 fill-height" flat>
-      <v-card class="mx-4 mt-2 mb-2 px-4 py-2" align="center">
-        <PhytofyLayout v-model="parameters.layout" />
-      </v-card>
-      <v-card class="mx-4 mt-2 mb-4 px-4 py-2 flex-grow-1 d-flex align-stretch">
-        <PhytofySimulation class="flex-grow-1" v-model="parameters" />
+      <v-card class="ma-0 pa-2 flex-grow-1 d-flex align-stretch">
+        <PhytofySimulation class="flex-grow-1" v-model="parameters" @settings="adjust"/>
       </v-card>
     </v-card>
-    <v-dialog v-model="caution" persistent width="30%">
+    <v-dialog v-model="settings" persistent width="90%">
+      <v-card>
+        <v-card-title>Settings</v-card-title>
+        <v-card-text>
+          <PhytofyLayout v-model="parameters.layout" />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="settings = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="caution" persistent width="60%">
       <v-card>
         <v-card-title>CAUTION</v-card-title>
         <v-card-text>
@@ -50,6 +59,7 @@ export default Vue.extend({
   },
 
   data: () => ({
+    settings: false,
     parameters: {
       layout: {
         elevation: ELEVATION_DEFAULT,
@@ -67,6 +77,12 @@ export default Vue.extend({
     cautionVisible() {
       return !this.$store.state.eulaVisible && this.caution;
     },
+  },
+
+  methods: {
+    adjust() {
+      this.settings = true;
+    }
   },
 });
 </script>

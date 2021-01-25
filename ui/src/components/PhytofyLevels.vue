@@ -60,7 +60,7 @@
 
 <style scoped>
 .channel-slider >>> .v-slider {
-  min-height: 100px !important;
+  min-height: 80px !important;
 }
 </style>
 
