@@ -44,6 +44,9 @@ export default Vue.extend({
       type: Object,
       required: true,
     },
+    settings: {
+      type: Function,
+    },
   },
 
   data: () => ({
@@ -180,6 +183,19 @@ export default Vue.extend({
       displayModeBar: true,
       displaylogo: false,
       responsive: true,
+      modeBarButtonsToAdd: [
+        {
+          name: "Settings",
+          icon: {
+            width: 1792,
+            height: 1792,
+            path:
+              "M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z",
+            transform: "matrix(1 0 0 1 0 1)",
+          },
+          click: () => { return; },
+        },
+      ],
     },
   }),
 
@@ -198,6 +214,9 @@ export default Vue.extend({
 
   methods: {
     update() {
+      this.plotConfig.modeBarButtonsToAdd[0].click = () => {
+        this.$emit("settings");
+      };
       const simulation = this.updateSimulation();
       this.updateScale();
       this.updateSelection(simulation);

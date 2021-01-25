@@ -4,27 +4,58 @@
   <v-main>
     <span ref="zone" id="zone">
       <v-card class="d-flex flex-column ma-0 pa-0 fill-height" flat>
-        <v-card class="mx-4 mt-4 mb-2 px-4 py-2" align="center">
+        <v-card class="ma-0 pa-0" align="center" flat>
           <v-container class="pa-0 ma-0" fluid>
             <v-row>
-              <v-col lg="2" sm="4">
-                <v-btn @click="createSchedule" :disabled="!ready">Create</v-btn>
+              <v-col>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      @click="createSchedule"
+                      :disabled="!ready"
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Create</span>
+                </v-tooltip>
               </v-col>
-              <v-col lg="2" sm="4">
-                <v-btn
-                  @click="editSchedule"
-                  :disabled="!ready || selectedNotOneSchedule"
-                  >Edit</v-btn
-                >
+              <v-col>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      @click="editSchedule"
+                      :disabled="!ready || selectedNotOneSchedule"
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Edit</span>
+                </v-tooltip>
               </v-col>
-              <v-col lg="2" sm="4">
-                <v-btn
-                  @click="deleteSchedules"
-                  :disabled="!ready || selectedNoSchedule"
-                  >Delete</v-btn
-                >
+              <v-col>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      @click="deleteSchedules"
+                      :disabled="!ready || selectedNoSchedule"
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Delete</span>
+                </v-tooltip>
               </v-col>
-              <v-col lg="2" sm="4">
+              <v-col>
                 <input
                   v-show="false"
                   type="file"
@@ -32,22 +63,57 @@
                   id="upload"
                   @change="importSchedules"
                 />
-                <v-btn @click="$refs.upload.click()" :disabled="!ready">{{
-                  !ready ? "Please Wait" : dragging ? "Drop CSV" : "Import CSV"
-                }}</v-btn>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      @click="$refs.upload.click()"
+                      :disabled="!ready"
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-publish</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Import</span>
+                </v-tooltip>
               </v-col>
-              <v-col lg="2" sm="4">
-                <v-btn @click="exportSchedules" :disabled="!ready"
-                  >Export CSV</v-btn
-                >
+              <v-col>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      @click="exportSchedules"
+                      :disabled="!ready"
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-download</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Export</span>
+                </v-tooltip>
               </v-col>
-              <v-col lg="2" sm="4">
-                <v-btn @click="applySchedules" :disabled="!ready">Apply</v-btn>
+              <v-col>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      @click="applySchedules"
+                      :disabled="!ready"
+                      icon
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-send</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Apply</span>
+                </v-tooltip>
               </v-col>
             </v-row>
           </v-container>
         </v-card>
-        <v-card class="mx-4 mt-2 mb-4 px-4 py-2 flex-grow-1 d-flex">
+        <v-card class="ma-0 pa-0 flex-grow-1 d-flex" flat>
           <v-row>
             <v-col xs="12" class="d-flex">
               <v-data-table
@@ -173,40 +239,10 @@ export default Vue.extend({
         value: "stopTime",
       },
       {
-        text: "UV-A",
+        text: "Channel Levels",
         align: "start",
         sortable: false,
-        value: "levels[0]",
-      },
-      {
-        text: "Blue",
-        align: "start",
-        sortable: false,
-        value: "levels[1]",
-      },
-      {
-        text: "Green",
-        align: "start",
-        sortable: false,
-        value: "levels[2]",
-      },
-      {
-        text: "Hyper Red",
-        align: "start",
-        sortable: false,
-        value: "levels[3]",
-      },
-      {
-        text: "Far Red",
-        align: "start",
-        sortable: false,
-        value: "levels[4]",
-      },
-      {
-        text: "White",
-        align: "start",
-        sortable: false,
-        value: "levels[5]",
+        value: "levels",
       },
       {
         text: "Serial Number",

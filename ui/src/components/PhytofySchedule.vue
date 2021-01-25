@@ -19,7 +19,6 @@
                       :return-value.sync="$props.value.startDate"
                       transition="scale-transition"
                       offset-y
-                      min-width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -36,6 +35,7 @@
                         v-model="$props.value.startDate"
                         @change="validate"
                         scrollable
+                        :landscape="landscape()"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -61,7 +61,6 @@
                       :return-value.sync="$props.value.stopDate"
                       transition="scale-transition"
                       offset-y
-                      min-width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -78,6 +77,7 @@
                         v-model="$props.value.stopDate"
                         @change="validate"
                         scrollable
+                        :landscape="landscape()"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -103,7 +103,6 @@
                       :return-value.sync="$props.value.startTime"
                       transition="scale-transition"
                       offset-y
-                      min-width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -119,8 +118,8 @@
                       <v-time-picker
                         v-model="$props.value.startTime"
                         @change="validate"
-                        full-width
                         format="24hr"
+                        :landscape="landscape()"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -146,7 +145,6 @@
                       :return-value.sync="$props.value.stopTime"
                       transition="scale-transition"
                       offset-y
-                      min-width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
@@ -162,8 +160,8 @@
                       <v-time-picker
                         v-model="$props.value.stopTime"
                         @change="validate"
-                        full-width
                         format="24hr"
+                        :landscape="landscape()"
                       >
                         <v-spacer></v-spacer>
                         <v-btn
@@ -322,6 +320,10 @@ export default Vue.extend({
           skipEmpty([this.$props.value.startDate, this.$props.value.stopDate])
         ) || "Stop date must follow start date"
       );
+    },
+
+    landscape() {
+      return window.innerWidth > window.innerHeight;
     },
   },
 });

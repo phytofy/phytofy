@@ -20,11 +20,10 @@
         <span>&#112;&#104;&#121;&#116;&#111;&#102;&#121;&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#111;&#115;&#114;&#97;&#109;&#46;&#99;&#111;&#109;</span>
         <br />
       </p>
-      <h2>Terms of Service</h2>
+      <h2>Terms of Service &amp; Credits</h2>
       <p>
         <v-btn @click="open">End User License Agreement</v-btn>
       </p>
-      <h2>Credits</h2>
       <p>
         <v-dialog v-model="dialog" persistent scrollable>
           <template v-slot:activator="{ on, attrs }">
