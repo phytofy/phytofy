@@ -8,6 +8,7 @@ import (
 	"embed"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -68,7 +69,9 @@ func webLaunch(port uint16, routes []webRoute, includeUI bool, logger *log.Logge
 		router.Methods(route.Method).Path(route.Path).Name(route.Name).Handler(handler)
 	}
 	if includeUI {
-		router.PathPrefix("/").Handler(http.FileServer(http.FS(assets)))
+		if stripped, fail := fs.Sub(assets, "assets"); fail == nil {
+			router.PathPrefix("/").Handler(http.FileServer(http.FS(stripped)))
+		}
 	}
 	return http.ListenAndServe(fmt.Sprintf(":%d", port), router)
 }
