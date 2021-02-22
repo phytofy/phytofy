@@ -24,7 +24,7 @@ RUN cd /app/ui && \
 
 
 # Build Go licensing info
-FROM golang:1.15.2-alpine3.12 AS BuildLicensingGo
+FROM golang:1.16.0-alpine3.13 AS BuildLicensingGo
 
 COPY ./core /app/core
 
@@ -53,7 +53,7 @@ RUN rm -rf /app/ui/node_modules
 
 
 # Build irradiance simulator
-FROM golang:1.15.2-alpine3.12 AS BuildIrradiance
+FROM golang:1.16.0-alpine3.13 AS BuildIrradiance
 
 COPY ./core /app/core
 
@@ -79,7 +79,7 @@ RUN cd /app/ui && \
 
 
 # Build App
-FROM golang:1.15.2-alpine3.12 AS BuildApp
+FROM golang:1.16.0-alpine3.13 AS BuildApp
 
 RUN apk update && apk add --no-cache git
 
@@ -90,8 +90,6 @@ WORKDIR /app/core
 RUN go get -d -v && \
     go get -u golang.org/x/lint/golint && \
     golint -set_exit_status ./... && \
-    go get github.com/GeertJohan/go.rice/rice && \
-    rice embed-go && \
     CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o /app/phytofy
 
 

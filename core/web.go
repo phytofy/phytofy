@@ -5,13 +5,13 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 
-	rice "github.com/GeertJohan/go.rice"
 	"github.com/gorilla/mux"
 )
 
@@ -28,6 +28,9 @@ type webErrorReply struct {
 	Error  string `json:"error,omitempty"`
 	Result string `json:"result,omitempty"`
 }
+
+//go:embed assets/*
+var assets embed.FS
 
 func webHandlerWrapper(handler webHandler, name string, logger *log.Logger) http.HandlerFunc {
 	return http.HandlerFunc(func(response http.ResponseWriter, request *http.Request) {
@@ -65,7 +68,7 @@ func webLaunch(port uint16, routes []webRoute, includeUI bool, logger *log.Logge
 		router.Methods(route.Method).Path(route.Path).Name(route.Name).Handler(handler)
 	}
 	if includeUI {
-		router.PathPrefix("/").Handler(http.FileServer(rice.MustFindBox("assets").HTTPBox()))
+		router.PathPrefix("/").Handler(http.FileServer(http.FS(assets)))
 	}
 	return http.ListenAndServe(fmt.Sprintf(":%d", port), router)
 }
