@@ -71,6 +71,8 @@ func webLaunch(port uint16, routes []webRoute, includeUI bool, logger *log.Logge
 	if includeUI {
 		if stripped, fail := fs.Sub(assets, "assets"); fail == nil {
 			router.PathPrefix("/").Handler(http.FileServer(http.FS(stripped)))
+		} else {
+			logger.Printf("ERROR: Static assets are missing (%s)", fail)
 		}
 	}
 	return http.ListenAndServe(fmt.Sprintf(":%d", port), router)
