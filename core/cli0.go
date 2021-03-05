@@ -50,12 +50,12 @@ func cli0Web(includeUI bool) cliFunction {
 // This function registers the commands & arguments to the CLI for PHYTOFY RL v0
 func cli0Commands() []cliCommand {
 	return []cliCommand{
-		cliCommand{"v0-set-leds", "JSON", "JSON-formatted input for the command", cli0Wrapper},
-		cliCommand{"v0-schedule-add", "JSON", "JSON-formatted input for the command", cli0Wrapper},
-		cliCommand{"v0-schedules-clear", "JSON", "JSON-formatted input for the command", cli0Wrapper},
-		cliCommand{"v0-get-serials", "JSON", "JSON-formatted input for the command", cli0Wrapper},
-		cliCommand{"v0-import-schedules", "CSV", "CSV file with schedules & recipes", cli0ImportSchedules},
-		cliCommand{"v0-api", "PORT", "TCP port to expose API on", cli0Web(false)},
-		cliCommand{"v0-app", "PORT", "TCP port to expose API & UI on", cli0Web(true)},
+		{"v0-set-leds", "JSON", "JSON-formatted input for the command", cli0Wrapper},
+		{"v0-schedule-add", "JSON", "JSON-formatted input for the command", cli0Wrapper},
+		{"v0-schedules-clear", "JSON", "JSON-formatted input for the command", cli0Wrapper},
+		{"v0-get-serials", "JSON", "JSON-formatted input for the command", cli0Wrapper},
+		{"v0-import-schedules", "CSV", "CSV file with schedules & recipes", cli0ImportSchedules},
+		{"v0-api", "PORT", "TCP port to expose API on", cli0Web(false)},
+		{"v0-app", "PORT", "TCP port to expose API & UI on", cli0Web(true)},
 	}
 }
