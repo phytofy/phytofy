@@ -33,6 +33,17 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ImportSchedulesReply"
+  /exit:
+    get:
+      summary: Triggers an exit
+      operationId: api.exit
+      responses:
+        default:
+          description: Empty reply
+          content:
+            text/plain:
+              schema:
+                type: string
 components:
   schemas:
     Serial:
