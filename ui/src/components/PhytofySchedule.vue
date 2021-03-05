@@ -3,192 +3,142 @@
 <template>
   <v-dialog v-model="$props.visible" persistent scrollable>
     <v-card>
-      <v-card-title>Schedule</v-card-title>
-      <v-divider></v-divider>
       <v-card-text>
         <v-form ref="schedule" v-model="valid">
-          <v-row>
-            <v-col align="center">
-              <v-row class="no-gutters">
-                <v-col>
-                  <v-card class="d-flex justify-space-between" flat tile>
-                    <v-menu
-                      ref="startDateMenuRef"
-                      v-model="startDateMenuVisible"
-                      :close-on-content-click="false"
-                      :return-value.sync="$props.value.startDate"
-                      transition="scale-transition"
-                      offset-y
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="$props.value.startDate"
-                          label="Start Date"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                          :rules="[datesRule]"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="$props.value.startDate"
-                        @change="validate"
-                        scrollable
-                        :landscape="landscape()"
-                      >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="startDateMenuVisible = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="
-                            $refs.startDateMenuRef.save($props.value.startDate)
-                          "
-                          >OK</v-btn
-                        >
-                      </v-date-picker>
-                    </v-menu>
-                    <v-menu
-                      ref="stopDateMenuRef"
-                      v-model="stopDateMenuVisible"
-                      :close-on-content-click="false"
-                      :return-value.sync="$props.value.stopDate"
-                      transition="scale-transition"
-                      offset-y
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="$props.value.stopDate"
-                          label="Stop Date"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                          :rules="[datesRule]"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="$props.value.stopDate"
-                        @change="validate"
-                        scrollable
-                        :landscape="landscape()"
-                      >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="stopDateMenuVisible = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="
-                            $refs.stopDateMenuRef.save($props.value.stopDate)
-                          "
-                          >OK</v-btn
-                        >
-                      </v-date-picker>
-                    </v-menu>
-                    <v-menu
-                      ref="startTimeMenuRef"
-                      v-model="startTimeMenuVisible"
-                      :close-on-content-click="false"
-                      :return-value.sync="$props.value.startTime"
-                      transition="scale-transition"
-                      offset-y
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="$props.value.startTime"
-                          label="Start Time"
-                          prepend-icon="mdi-clock-outline"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                          :rules="[timesRule]"
-                        ></v-text-field>
-                      </template>
-                      <v-time-picker
-                        v-model="$props.value.startTime"
-                        @change="validate"
-                        format="24hr"
-                        :landscape="landscape()"
-                      >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="startTimeMenuVisible = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="
-                            $refs.startTimeMenuRef.save($props.value.startTime)
-                          "
-                          >OK</v-btn
-                        >
-                      </v-time-picker>
-                    </v-menu>
-                    <v-menu
-                      ref="stopTimeMenuRef"
-                      v-model="stopTimeMenuVisible"
-                      :close-on-content-click="false"
-                      :return-value.sync="$props.value.stopTime"
-                      transition="scale-transition"
-                      offset-y
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="$props.value.stopTime"
-                          label="Stop Time"
-                          prepend-icon="mdi-clock-outline"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                          :rules="[timesRule]"
-                        ></v-text-field>
-                      </template>
-                      <v-time-picker
-                        v-model="$props.value.stopTime"
-                        @change="validate"
-                        format="24hr"
-                        :landscape="landscape()"
-                      >
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="stopTimeMenuVisible = false"
-                          >Cancel</v-btn
-                        >
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="
-                            $refs.stopTimeMenuRef.save($props.value.stopTime)
-                          "
-                          >OK</v-btn
-                        >
-                      </v-time-picker>
-                    </v-menu>
-                    <v-select
-                      :items="preexisting"
-                      v-model="$props.value.serial"
-                      label="Serial Number"
-                      prepend-icon="mdi-white-balance-iridescent"
-                    ></v-select>
-                  </v-card>
-                </v-col>
-              </v-row>
+          <v-row class="no-gutters py-1">
+            <v-col class="ma-0 pl-0 pr-2 py-0" cols="6" sm="3">
+              <v-dialog
+                ref="startDateRef"
+                v-model="startDateVisible"
+                :return-value.sync="$props.value.startDate"
+                transition="scale-transition"
+                persistent
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="$props.value.startDate"
+                    hint="Start Date"
+                    persistent-hint
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    dense
+                    :rules="[datesRule]"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-if="startDateVisible"
+                  v-model="$props.value.startDate"
+                  @change="validate"
+                  @input="$refs.startDateRef.save($props.value.startDate)"
+                  full-width
+                  :landscape="landscape()"
+                ></v-date-picker>
+              </v-dialog>
+            </v-col>
+            <v-col class="ma-0 pl-0 pr-2 py-0" cols="6" sm="3">
+              <v-dialog
+                ref="stopDateMenuRef"
+                v-model="stopDateVisible"
+                :close-on-content-click="false"
+                :return-value.sync="$props.value.stopDate"
+                transition="scale-transition"
+                persistent
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="$props.value.stopDate"
+                    hint="Stop Date"
+                    persistent-hint
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    dense
+                    :rules="[datesRule]"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  v-if="stopDateVisible"
+                  v-model="$props.value.stopDate"
+                  @change="validate"
+                  @input="$refs.stopDateMenuRef.save($props.value.stopDate)"
+                  full-width
+                  :landscape="landscape()"
+                ></v-date-picker>
+              </v-dialog>
+            </v-col>
+            <v-col class="ma-0 pl-0 pr-2 py-0" cols="6" sm="3">
+              <v-dialog
+                ref="startTimeMenuRef"
+                v-model="startTimeVisible"
+                :return-value.sync="$props.value.startTime"
+                transition="scale-transition"
+                persistent
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="$props.value.startTime"
+                    hint="Start Time"
+                    persistent-hint
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    dense
+                    :rules="[timesRule]"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="startTimeVisible"
+                  v-model="$props.value.startTime"
+                  @change="validate"
+                  @input="$refs.startTimeMenuRef.save($props.value.startTime)"
+                  format="24hr"
+                  full-width
+                  :landscape="landscape()"
+                ></v-time-picker>
+              </v-dialog>
+            </v-col>
+            <v-col class="ma-0 pl-0 pr-2 py-0" cols="6" sm="3">
+              <v-dialog
+                ref="stopTimeMenuRef"
+                v-model="stopTimeVisible"
+                :return-value.sync="$props.value.stopTime"
+                transition="scale-transition"
+                persistent
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="$props.value.stopTime"
+                    hint="Stop Time"
+                    persistent-hint
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    dense
+                    :rules="[timesRule]"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="stopTimeVisible"
+                  v-model="$props.value.stopTime"
+                  @change="validate"
+                  @input="$refs.stopTimeMenuRef.save($props.value.stopTime)"
+                  format="24hr"
+                  full-width
+                  :landscape="landscape()"
+                ></v-time-picker>
+              </v-dialog>
+            </v-col>
+            <v-col cols="12">
+              <v-select
+                :items="preexisting"
+                v-model="$props.value.serial"
+                hint="Serial Number"
+                persistent-hint
+                dense
+              ></v-select>
+            </v-col>
+            <v-col cols="12">
               <PhytofyLevels v-model="$props.value.levels" />
             </v-col>
           </v-row>
@@ -197,8 +147,10 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn text @click="cancel">Cancel</v-btn>
-        <v-btn text @click="save" :disabled="!valid || empty()">Save</v-btn>
+        <v-btn text @click="cancel" dense>Cancel</v-btn>
+        <v-btn text @click="save" :disabled="!valid || empty()" dense
+          >Save</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -257,10 +209,10 @@ export default Vue.extend({
   },
 
   data: () => ({
-    startDateMenuVisible: false,
-    startTimeMenuVisible: false,
-    stopDateMenuVisible: false,
-    stopTimeMenuVisible: false,
+    startDateVisible: false,
+    startTimeVisible: false,
+    stopDateVisible: false,
+    stopTimeVisible: false,
     valid: false,
   }),
 

@@ -2,26 +2,19 @@
 
 <template>
   <v-slider
-    class="phytofy-level-slider"
     :value="limiter"
     :min="$props.min"
     :max="$props.max"
     :step="$props.step"
     :color="$props.color"
-    :vertical="true"
     :key="key"
     track-color="grey--lighten"
+    dense
     @input="setLevel"
     @end="redraw"
     @click="redraw"
   ></v-slider>
 </template>
-
-<style scoped>
-.phytofy-level-slider >>> .v-slider {
-  min-height: 100px !important;
-}
-</style>
 
 <script lang="ts">
 import Vue from "vue";
@@ -32,27 +25,27 @@ export default Vue.extend({
   props: {
     value: {
       type: Number,
-      required: true
+      required: true,
     },
     min: {
       type: Number,
-      default: 0
+      default: 0,
     },
     max: {
       type: Number,
-      default: 100
+      default: 100,
     },
     step: {
       type: Number,
-      default: 0.1
+      default: 0.1,
     },
     limit: {
       type: Number,
-      default: 100
+      default: 100,
     },
     color: {
       type: String,
-      default: "primary"
+      default: "primary",
     },
   },
 

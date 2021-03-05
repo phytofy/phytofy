@@ -14,6 +14,7 @@
                       @click="createSchedule"
                       :disabled="!ready"
                       icon
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -30,6 +31,7 @@
                       @click="editSchedule"
                       :disabled="!ready || selectedNotOneSchedule"
                       icon
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -46,6 +48,7 @@
                       @click="deleteSchedules"
                       :disabled="!ready || selectedNoSchedule"
                       icon
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -69,6 +72,7 @@
                       @click="$refs.upload.click()"
                       :disabled="!ready"
                       icon
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -85,6 +89,7 @@
                       @click="exportSchedules"
                       :disabled="!ready"
                       icon
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -101,6 +106,7 @@
                       @click="applySchedules"
                       :disabled="!ready"
                       icon
+                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -122,8 +128,19 @@
                 show-select
                 :headers="headers"
                 :items="schedules"
-                :items-per-page="10"
-              />
+                :items-per-page="4"
+                :hide-default-footer="true"
+              >
+                <template v-slot:top="{ pagination, options, updateOptions }">
+                  <v-data-footer
+                    :pagination="pagination"
+                    :options="options"
+                    @update:options="updateOptions"
+                    items-per-page-text="$vuetify.dataTable.itemsPerPageText"
+                    :items-per-page-options="[2, 4, 10, 20, 50, 100]"
+                  />
+                </template>
+              </v-data-table>
             </v-col>
           </v-row>
         </v-card>
