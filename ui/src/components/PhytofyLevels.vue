@@ -1,68 +1,87 @@
 <!-- Copyright (c) 2020 OSRAM; Licensed under the MIT license. -->
 
 <template>
-  <v-container class="pa-0 ma-0">
-    <v-row class="no-gutters">
-      <template v-for="(channel, i) in channels">
-        <v-col :key="i">
-          <PhytofyLevelSlider
-            :value="levelsUncommitted[i]"
-            :limit="levelLimits[i]"
-            :color="channel.color"
-            @input="(newValue) => setLevel(newValue, levelsUncommitted, levelLimits, i, true)"
-          />
-        </v-col>
-      </template>
-      <v-col>
-        <PhytofyLevelSlider
-          :value="totalUncommitted"
-          :max="300"
-          :limit="totalLimit"
-          color="#000000"
-          @input="(newValue) => setTotalAndLevels(totalCommitted, newValue, totalLimit, value, false)"
-          @change="(newValue) => setTotalAndLevels(totalCommitted, newValue, totalLimit, value, true)"
-        />
+  <v-row class="no-gutters">
+    <template v-for="(channel, i) in channels">
+      <v-col :key="i" class="ma-0 pa-0" cols="12" sm="6" md="4" lg="2">
+        <v-row class="no-gutters">
+          <v-col class="ma-0 pl-0 pr-2 py-0" cols="3">
+            <PhytofyLevelField
+              :value="levelsUncommitted[i]"
+              :limit="levelLimits[i]"
+              :hint="channel.hint"
+              @input="
+                (newValue) =>
+                  setLevel(newValue, levelsUncommitted, levelLimits, i, true)
+              "
+            />
+          </v-col>
+          <v-col :key="i" class="ma-0 pa-0" cols="9">
+            <PhytofyLevelSlider
+              :value="levelsUncommitted[i]"
+              :limit="levelLimits[i]"
+              :color="channel.color"
+              @input="
+                (newValue) =>
+                  setLevel(newValue, levelsUncommitted, levelLimits, i, true)
+              "
+            />
+          </v-col>
+        </v-row>
       </v-col>
-    </v-row>
-    <v-row class="no-gutters">
-      <template v-for="(channel, i) in channels">
-        <v-col :key="i" class="px-2">
+    </template>
+    <v-col class="ma-0 pa-0" cols="12">
+      <v-row class="no-gutters">
+        <v-col class="ma-0 pl-0 pr-2 py-0" cols="3" sm="2" md="1">
           <PhytofyLevelField
-            :value="levelsUncommitted[i]"
-            :limit="levelLimits[i]"
-            @input="(newValue) => setLevel(newValue, levelsUncommitted, levelLimits, i, true)"
+            :value="totalUncommitted"
+            :max="300"
+            :limit="totalLimit"
+            hint="Total"
+            @input="
+              (newValue) =>
+                setTotalAndLevels(
+                  totalCommitted,
+                  newValue,
+                  totalLimit,
+                  value,
+                  true
+                )
+            "
           />
         </v-col>
-      </template>
-      <v-col class="px-2">
-        <PhytofyLevelField
-          :value="totalUncommitted"
-          :max="300"
-          :limit="totalLimit"
-          @input="(newValue) => setTotalAndLevels(totalCommitted, newValue, totalLimit, value, true)"
-        />
-      </v-col>
-    </v-row>
-    <v-row class="no-gutters">
-      <template v-for="(channel, i) in channels">
-        <v-col :key="i" align="center" dense>{{ channel.label }}</v-col>
-      </template>
-      <v-col align="center" dense>Total</v-col>
-    </v-row>
-    <v-row class="no-gutters">
-      <template v-for="(channel, i) in channels">
-        <v-col :key="i" align="center" dense>{{ channel.wavelength }}</v-col>
-      </template>
-      <v-col align="center" dense>&nbsp;</v-col>
-    </v-row>
-  </v-container>
+        <v-col class="ma-0 pa-0" cols="9" sm="10" md="11">
+          <PhytofyLevelSlider
+            :value="totalUncommitted"
+            :max="300"
+            :limit="totalLimit"
+            color="#000000"
+            @input="
+              (newValue) =>
+                setTotalAndLevels(
+                  totalCommitted,
+                  newValue,
+                  totalLimit,
+                  value,
+                  false
+                )
+            "
+            @change="
+              (newValue) =>
+                setTotalAndLevels(
+                  totalCommitted,
+                  newValue,
+                  totalLimit,
+                  value,
+                  true
+                )
+            "
+          />
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
-
-<style scoped>
-.channel-slider >>> .v-slider {
-  min-height: 80px !important;
-}
-</style>
 
 <script lang="ts">
 import Vue from "vue";
@@ -125,12 +144,12 @@ export default Vue.extend({
 
   data: () => ({
     channels: [
-      { label: "UV-A", wavelength: "380 nm", color: "#4A148C" },
-      { label: "Blue", wavelength: "450 nm", color: "#0D47A1" },
-      { label: "Green", wavelength: "520 nm", color: "#1B5E20" },
-      { label: "Hyper Red", wavelength: "650 nm", color: "#B71C1C" },
-      { label: "Far Red", wavelength: "730 nm", color: "#880E4F" },
-      { label: "White", wavelength: "2700 K", color: "#F57F17" },
+      { hint: "UV-A", color: "#4A148C" },
+      { hint: "Blue", color: "#0D47A1" },
+      { hint: "Green", color: "#1B5E20" },
+      { hint: "Hyper R.", color: "#B71C1C" },
+      { hint: "Far R.", color: "#880E4F" },
+      { hint: "White", color: "#F57F17" },
     ],
     levelStep: LEVEL_STEP,
     levelsUncommitted: [0, 0, 0, 0, 0, 0],

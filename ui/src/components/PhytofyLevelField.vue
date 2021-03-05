@@ -7,6 +7,8 @@
     :min="$props.min"
     :max="$props.max"
     :step="$props.step"
+    :hint="$props.hint"
+    persistent-hint
     :maxlength="5"
     :key="key"
     suffix="%"
@@ -57,6 +59,9 @@ export default Vue.extend({
     limit: {
       type: Number,
       default: 100,
+    },
+    hint: {
+      type: String,
     },
   },
 
