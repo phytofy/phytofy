@@ -12,6 +12,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -61,9 +62,21 @@ func webHandlerWrapper(handler webHandler, name string, logger *log.Logger) http
 	})
 }
 
+func webExit(name string, jsonArguments []byte) ([]byte, error) {
+	os.Exit(0)
+	return []byte{}, nil
+}
+
 // Launches a web server for PHYTOFY RL
 func webLaunch(port uint16, routes []webRoute, includeUI bool, logger *log.Logger) error {
 	router := mux.NewRouter().StrictSlash(true)
+	commonRoutes := []webRoute{
+		{"exit", http.MethodGet, "/api/exit", webExit},
+	}
+	for _, route := range commonRoutes {
+		handler := webHandlerWrapper(route.Handler, route.Name, logger)
+		router.Methods(route.Method).Path(route.Path).Name(route.Name).Handler(handler)
+	}
 	for _, route := range routes {
 		handler := webHandlerWrapper(route.Handler, route.Name, logger)
 		router.Methods(route.Method).Path(route.Path).Name(route.Name).Handler(handler)
