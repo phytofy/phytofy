@@ -145,12 +145,12 @@ func (api *api0) api0Dispatch(name string, jsonArguments []byte) ([]byte, error)
 // Launches a web server for PHYTOFY RL v0
 func (api *api0) api0Launch(port uint16, includeUI bool) error {
 	routes := []webRoute{
-		webRoute{"set-leds", http.MethodPost, "/v0/set-leds", api.api0Dispatch},
-		webRoute{"schedule-add", http.MethodPost, "/v0/schedule-add", api.api0Dispatch},
-		webRoute{"schedules-clear", http.MethodPost, "/v0/schedules-clear", api.api0Dispatch},
-		webRoute{"get-serials", http.MethodGet, "/v0/get-serials", api.api0Dispatch},
-		webRoute{"get-serials", http.MethodGet, "/api/get-serials", api.api0Dispatch},
-		webRoute{"import-schedules", http.MethodPost, "/api/import-schedules", api.api0Dispatch},
+		{"set-leds", http.MethodPost, "/v0/set-leds", api.api0Dispatch},
+		{"schedule-add", http.MethodPost, "/v0/schedule-add", api.api0Dispatch},
+		{"schedules-clear", http.MethodPost, "/v0/schedules-clear", api.api0Dispatch},
+		{"get-serials", http.MethodGet, "/v0/get-serials", api.api0Dispatch},
+		{"get-serials", http.MethodGet, "/api/get-serials", api.api0Dispatch},
+		{"import-schedules", http.MethodPost, "/api/import-schedules", api.api0Dispatch},
 	}
 	return webLaunch(port, routes, includeUI, api.logger)
 }
