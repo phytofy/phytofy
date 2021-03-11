@@ -5,7 +5,7 @@
     <template v-for="(channel, i) in channels">
       <v-col :key="i" class="ma-0 pa-0" cols="12" sm="6" md="4" lg="2">
         <v-row class="no-gutters">
-          <v-col class="ma-0 pl-0 pr-2 py-0" cols="3">
+          <v-col class="ma-0 pl-0 pr-2 py-0" cols="3" lg="4">
             <PhytofyLevelField
               :value="levelsUncommitted[i]"
               :limit="levelLimits[i]"
@@ -16,7 +16,7 @@
               "
             />
           </v-col>
-          <v-col :key="i" class="ma-0 pa-0" cols="9">
+          <v-col :key="i" class="ma-0 pa-0" cols="9" lg="8">
             <PhytofyLevelSlider
               :value="levelsUncommitted[i]"
               :limit="levelLimits[i]"
