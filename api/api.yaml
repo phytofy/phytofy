@@ -44,6 +44,18 @@ paths:
             text/plain:
               schema:
                 type: string
+  /logs:
+    get:
+      summary: Returns logs is present
+      operationId: api.logs
+      responses:
+        default:
+          description: Empty reply
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
 components:
   schemas:
     Serial:

@@ -67,11 +67,18 @@ func webExit(name string, jsonArguments []byte) ([]byte, error) {
 	return []byte{}, nil
 }
 
+func webLogs(name string, jsonArguments []byte, logger *log.Logger) ([]byte, error) {
+	return logCollect(logger)
+}
+
 // Launches a web server for PHYTOFY RL
 func webLaunch(port uint16, routes []webRoute, includeUI bool, logger *log.Logger) error {
 	router := mux.NewRouter().StrictSlash(true)
 	commonRoutes := []webRoute{
 		{"exit", http.MethodGet, "/api/exit", webExit},
+		{"logs", http.MethodGet, "/api/logs", func(name string, jsonArguments []byte) ([]byte, error) {
+			return webLogs(name, jsonArguments, logger)
+		}},
 	}
 	for _, route := range commonRoutes {
 		handler := webHandlerWrapper(route.Handler, route.Name, logger)

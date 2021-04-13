@@ -5,8 +5,11 @@
 package main
 
 import (
+	"archive/zip"
+	"bytes"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 	"os/signal"
@@ -77,14 +80,19 @@ func execute(logger *log.Logger) {
 	showUsage(commands)
 }
 
+// Returns the base directory for logs
+func logBase() string {
+	return path.Join(path.Dir(os.Args[0]), "logs")
+}
+
 // Initializes logging for the application
-func initLogging() *log.Logger {
+func logInit() *log.Logger {
 	var output io.Writer
 	if toConsole, fail := strconv.ParseBool(os.Getenv("PHYTOFY_CONSOLE_LOGGING")); fail == nil && toConsole {
 		output = os.Stdout
 	} else {
 		output = &lumberjack.Logger{
-			Filename: path.Join(path.Dir(os.Args[0]), "logs", "phytofy.log"),
+			Filename: path.Join(logBase(), "phytofy.log"),
 			MaxSize:  100,
 			MaxAge:   64,
 		}
@@ -93,8 +101,49 @@ func initLogging() *log.Logger {
 	return logger
 }
 
+// Attempts to flush the logs
+func logFlush(logger *log.Logger) {
+	if flusher, ok := logger.Writer().(interface{ Flush() }); ok {
+		flusher.Flush()
+	} else if syncer := logger.Writer().(interface{ Sync() error }); ok {
+		syncer.Sync()
+	}
+}
+
+// Collects log files in a ZIP
+func logCollect(logger *log.Logger) ([]byte, error) {
+	logFlush(logger)
+	buffer := bytes.Buffer{}
+	zipped := zip.NewWriter(&buffer)
+	base := logBase()
+	files, fail := ioutil.ReadDir(base)
+	if fail != nil {
+		return nil, fail
+	}
+	for _, file := range files {
+		if !file.IsDir() {
+			data, fail := ioutil.ReadFile(path.Join(base, file.Name()))
+			if fail != nil {
+				return nil, fail
+			}
+			entry, fail := zipped.Create(file.Name())
+			if fail != nil {
+				return nil, fail
+			}
+			_, fail = entry.Write(data)
+			if fail != nil {
+				return nil, fail
+			}
+		}
+	}
+	if fail := zipped.Close(); fail != nil {
+		return nil, fail
+	}
+	return buffer.Bytes(), nil
+}
+
 // This if the main function for this application
 func main() {
 	signalHandling()
-	execute(initLogging())
+	execute(logInit())
 }
