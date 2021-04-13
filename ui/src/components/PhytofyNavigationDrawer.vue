@@ -43,6 +43,23 @@
         </template>
         <span>Simulator</span>
       </v-tooltip>
+      <v-tooltip right>
+        <template v-slot:activator="{ on, attrs }">
+          <v-list-item
+            to="/tools"
+            active-class="primary--text"
+            ripple
+            v-bind="attrs"
+            v-on="on"
+          >
+            <v-list-item-action>
+              <v-icon>mdi-cog</v-icon>
+            </v-list-item-action>
+            <v-list-item-title>Tools</v-list-item-title>
+          </v-list-item>
+        </template>
+        <span>Tools</span>
+      </v-tooltip>
     </v-list>
     <template v-slot:append>
       <v-list>

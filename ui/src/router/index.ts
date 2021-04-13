@@ -25,6 +25,15 @@ const routes: RouteConfig[] = [
       import(/* webpackChunkName: "simulator" */ "@/views/PhytofySimulator.vue")
   },
   {
+    path: "/tools",
+    name: "Tools",
+    // route level code-splitting
+    // this generates a separate chunk (tools.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "tools" */ "@/views/PhytofyTools.vue")
+  },
+  {
     path: "/information",
     name: "Information",
     // route level code-splitting
