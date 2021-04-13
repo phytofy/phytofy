@@ -15,11 +15,6 @@ import PhytofyPlotly from "@/components/PhytofyPlotly.vue";
 import { FORMATIONS, CHANNELS, SCALE_DEFAULT } from "../shared";
 import * as plotly from "plotly.js";
 
-interface SimulatorInterface {
-  irradianceSimulation: Function;
-  irradianceSpectrum: Function;
-}
-
 interface Simulation {
   irradianceMaps: number[][][];
   minima: number[];
@@ -30,6 +25,11 @@ interface Simulation {
   selectedMaximum: number;
   selectedMean: number;
   luminairesMap: number[][];
+}
+
+interface SimulatorInterface {
+  irradianceSimulation: (levels: number[], orientation: number, elevation: number, countX: number, countY: number, spacing: number) => Simulation;
+  irradianceSpectrum: (levels: number[]) => number[];
 }
 
 export default Vue.extend({
@@ -166,7 +166,7 @@ export default Vue.extend({
       },
       showlegend: false,
       autosize: true,
-      shapes: [] as object[],
+      shapes: [] as Record<string, unknown>[],
     },
     plotConfig: {
       modeBarButtonsToRemove: [
@@ -298,7 +298,7 @@ export default Vue.extend({
             levels.push(0);
           }
         }
-        const profile = ((window as unknown) as SimulatorInterface).irradianceSpectrum(
+        const profile: number[] = ((window as unknown) as SimulatorInterface).irradianceSpectrum(
           levels
         );
         profile.push(0);
