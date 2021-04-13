@@ -1,7 +1,7 @@
 # Copyright (c) 2020 OSRAM; Licensed under the MIT license.
 
 # Build API
-FROM node:12.19.0-alpine3.12 as BuildAPI
+FROM node:12.22.1-alpine3.12 as BuildAPI
 
 COPY ./api /app/api
 WORKDIR /app
@@ -13,7 +13,7 @@ RUN npm install -g swagger-cli && \
 
 
 # Build JS licensing info
-FROM node:12.19.0-alpine3.12 as BuildLicensingJS
+FROM node:12.22.1-alpine3.12 as BuildLicensingJS
 
 COPY ./ui /app/ui
 
@@ -24,7 +24,7 @@ RUN cd /app/ui && \
 
 
 # Build Go licensing info
-FROM golang:1.16.0-alpine3.13 AS BuildLicensingGo
+FROM golang:1.16.3-alpine3.13 AS BuildLicensingGo
 
 COPY ./core /app/core
 
@@ -33,7 +33,7 @@ RUN cd /app/core && \
 
 
 # Build licensing info
-FROM python:3.9.0-alpine3.12 as BuildLicensing
+FROM python:3.9.4-alpine3.13 as BuildLicensing
 
 ARG GH_API_USER
 ARG GH_API_TOKEN
@@ -53,7 +53,7 @@ RUN rm -rf /app/ui/node_modules
 
 
 # Build irradiance simulator
-FROM golang:1.16.0-alpine3.13 AS BuildIrradiance
+FROM golang:1.16.3-alpine3.13 AS BuildIrradiance
 
 COPY ./core /app/core
 
@@ -63,7 +63,7 @@ RUN cd /app/core && \
 
 
 # Build UI
-FROM node:12.19.0-alpine3.12 as BuildUI
+FROM node:12.22.1-alpine3.12 as BuildUI
 
 COPY --from=BuildLicensing /app/ui /app/ui
 COPY --from=BuildAPI /app/api/hw0.json /app/ui/public/hw0.json
@@ -79,7 +79,7 @@ RUN cd /app/ui && \
 
 
 # Build App
-FROM golang:1.16.0-alpine3.13 AS BuildApp
+FROM golang:1.16.3-alpine3.13 AS BuildApp
 
 RUN apk update && apk add --no-cache git
 
