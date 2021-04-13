@@ -1,3 +1,5 @@
+<!-- Copyright (c) 2020 OSRAM; Licensed under the MIT license. -->
+
 <template>
   <v-main>
     <v-card class="d-flex flex-column ma-0 pa-0 fill-height" flat>
