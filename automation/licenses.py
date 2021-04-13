@@ -33,7 +33,11 @@ def get(url, cache, headers=None):
                 result = reply.read().decode('utf-8')
                 break
         except urllib.error.HTTPError:
-            break
+            print(f'Retrying for {url}', file=sys.stderr)
+            continue
+        except ssl.SSLEOFError:
+            print(f'Retrying for {url}', file=sys.stderr)
+            continue
     cache[url] = result
     return result
 
