@@ -250,6 +250,7 @@ export default Vue.extend({
     },
 
     updateTitle(simulation: Simulation) {
+      const channel = this.$props.value.layout.channel;
       const minimum = simulation.selectedMinimum.toFixed(1);
       const maximum = simulation.selectedMaximum.toFixed(1);
       const mean = simulation.selectedMean.toFixed(1);
@@ -257,7 +258,7 @@ export default Vue.extend({
       const picked = this.x === null || this.y === null;
       const at = picked ? "no point selected" : `x: ${this.x}, y: ${this.y}`;
       const titleIrradianceSpectrum = `Spectrum (${at})`;
-      this.plotLayout.title.text = `Irradiance - ${titleIrradianceSpectrum} & ${titleIrradianceMap}`;
+      this.plotLayout.title.text = `${CHANNELS[channel].text} Irradiance - ${titleIrradianceSpectrum} & ${titleIrradianceMap}`;
     },
 
     updateLuminairesMap(simulation: Simulation) {
