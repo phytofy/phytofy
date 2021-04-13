@@ -116,7 +116,7 @@ def github_owner(account, cache, headers=None):
     """
     url = f'https://api.github.com/users/{account}'
     profile = json.loads(get(url, cache, headers=headers))
-    profile_name = profile['name']
+    profile_name = profile['name'] if 'name' in profile else account
     return profile_name
 
 
