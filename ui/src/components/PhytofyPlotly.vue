@@ -39,9 +39,9 @@ const eventsName = [
 ];
 
 interface DirectElement {
-  on: Function;
-  $emit: Function;
-  removeAllListeners: Function;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  on: (completeName: string, listener: (...args: any[]) => void) => DirectElement;
+  removeAllListeners: (completeName: string) => DirectElement;
 }
 
 const events = eventsName
