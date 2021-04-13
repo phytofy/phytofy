@@ -170,7 +170,6 @@ import Plotly from "plotly.js";
 import PhytofySchedule from "@/components/PhytofySchedule.vue";
 import { v4 as uuidv4 } from "uuid";
 import * as api from "../api";
-import { ImportSchedulesRequest } from "../api";
 
 interface Schedule {
   id: string;
