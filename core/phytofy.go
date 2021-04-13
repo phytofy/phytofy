@@ -101,18 +101,8 @@ func logInit() *log.Logger {
 	return logger
 }
 
-// Attempts to flush the logs
-func logFlush(logger *log.Logger) {
-	if flusher, ok := logger.Writer().(interface{ Flush() }); ok {
-		flusher.Flush()
-	} else if syncer := logger.Writer().(interface{ Sync() error }); ok {
-		syncer.Sync()
-	}
-}
-
 // Collects log files in a ZIP
 func logCollect(logger *log.Logger) ([]byte, error) {
-	logFlush(logger)
 	buffer := bytes.Buffer{}
 	zipped := zip.NewWriter(&buffer)
 	base := logBase()
