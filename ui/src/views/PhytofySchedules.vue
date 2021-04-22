@@ -151,10 +151,9 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- @click="handleClick(idx)" -->
                       <tr v-for="(schedule, idx) in schedules" :key="idx">
                         <td>
-                          <v-checkbox v-model="selected[idx]"></v-checkbox>
+                          <v-checkbox v-model="schedule.selected"></v-checkbox>
                         </td>
                         <td>
                           {{ schedule.startDate }} - {{ schedule.stopDate }}
@@ -201,6 +200,7 @@ import * as api from "../api";
 
 interface Schedule {
   id: string;
+  selected: boolean;
   startDate: string;
   stopDate: string;
   startTime: string;
@@ -211,6 +211,7 @@ interface Schedule {
 
 const blankSchedule = (): Schedule => ({
   id: uuidv4(),
+  selected: false,
   startDate: "",
   stopDate: "",
   startTime: "",
@@ -225,6 +226,7 @@ const unpackSchedule = (entry: string[]): Schedule[] => {
     .filter((serial) => serial !== "")
     .map((serial) => ({
       id: uuidv4(),
+      selected: false,
       startDate: entry[0],
       stopDate: entry[1],
       startTime: entry[2],
@@ -246,6 +248,16 @@ const packSchedule = (schedule: Schedule): string => {
   return fields.join();
 };
 
+const filterSelectedSchedules = (schedules: Schedule[]): Schedule[] => {
+  return schedules.filter((schedule: Schedule) => schedule.selected);
+};
+
+const fillSelectedSchedules = (schedules: Schedule[], value: boolean): void => {
+  schedules.forEach((schedule: Schedule) => {
+    schedule.selected = value;
+  });
+};
+
 export default Vue.extend({
   name: "PhytofySchedules",
 
@@ -256,7 +268,6 @@ export default Vue.extend({
   data: () => ({
     schedule: blankSchedule(),
     schedules: [] as Schedule[],
-    selected: [],
     headers: [
       {
         text: "Start Date",
@@ -305,16 +316,22 @@ export default Vue.extend({
   }),
 
   computed: {
+    selectedSchedules() {
+      return filterSelectedSchedules(this.schedules);
+    },
+
     selectedOne() {
-      return this.selectedSchedulesFull().length === 1;
+      return filterSelectedSchedules(this.schedules).length === 1;
     },
 
     selectedNone() {
-      return this.selectedSchedulesFull().length === 0;
+      return filterSelectedSchedules(this.schedules).length === 0;
     },
 
     selectedAll() {
-      return this.selectedSchedulesFull().length === this.schedules.length;
+      return (
+        filterSelectedSchedules(this.schedules).length === this.schedules.length
+      );
     },
   },
 
@@ -334,20 +351,14 @@ export default Vue.extend({
     rightSizeSchedules() {
       this.schedulesHeight =
         window.innerHeight -
-        this.$refs.schedulesBinder.getBoundingClientRect().top;
-    },
-
-    selectedSchedulesFull() {
-      return this.selected.flatMap((bool, index) =>
-        bool ? this.schedules[index] : []
-      );
+        (this.$refs.schedulesBinder as Element).getBoundingClientRect().top;
     },
 
     toggleGlobalSelection() {
       if (this.selectedAll) {
-        this.selected = [];
+        fillSelectedSchedules(this.selectedSchedules, false);
       } else {
-        this.selected = Array(this.schedules.length).fill(true);
+        fillSelectedSchedules(this.schedules, true);
       }
     },
 
@@ -495,17 +506,10 @@ export default Vue.extend({
     },
 
     deleteSchedules() {
-      const selected = this.selectedSchedulesIdentifiers();
       this.schedules = this.schedules.filter(
-        (schedule: Schedule) => selected.indexOf(schedule.id) === -1
+        (schedule: Schedule) => !schedule.selected
       );
-      this.selected = [];
-    },
-
-    selectedSchedulesIdentifiers() {
-      return this.selectedSchedulesFull().map(
-        (schedule: Schedule) => schedule.id
-      );
+      fillSelectedSchedules(this.schedules, false);
     },
 
     enterEditingSchedule(create: boolean) {
@@ -513,8 +517,8 @@ export default Vue.extend({
         this.schedule = blankSchedule();
         this.editing = true;
       } else {
-        if (this.selectedSchedulesFull().length === 1) {
-          this.schedule = { ...(this.selectedSchedulesFull()[0] as Schedule) };
+        if (this.selectedOne) {
+          this.schedule = { ...this.selectedSchedules[0] };
           this.editing = true;
         }
       }
@@ -531,7 +535,7 @@ export default Vue.extend({
           );
         }
       }
-      this.selected = [];
+      fillSelectedSchedules(this.schedules, false);
       this.editing = false;
     },
   },
