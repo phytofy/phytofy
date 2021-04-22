@@ -29,7 +29,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       @click="editSchedule"
-                      :disabled="!ready || selectedNotOneSchedule"
+                      :disabled="!ready || !selectedOne"
                       icon
                       small
                       v-bind="attrs"
@@ -46,7 +46,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       @click="deleteSchedules"
-                      :disabled="!ready || selectedNoSchedule"
+                      :disabled="!ready || selectedNone"
                       icon
                       small
                       v-bind="attrs"
@@ -122,25 +122,53 @@
         <v-card class="ma-0 pa-0 flex-grow-1 d-flex" flat>
           <v-row>
             <v-col xs="12" class="d-flex">
-              <v-data-table
+              <div
                 class="flex-grow-1"
-                v-model="selected"
-                show-select
-                :headers="headers"
-                :items="schedules"
-                :items-per-page="4"
-                :hide-default-footer="true"
+                v-resize="rightSizeSchedules"
+                v-mutate="rightSizeSchedules"
+                ref="schedulesBinder"
               >
-                <template v-slot:top="{ pagination, options, updateOptions }">
-                  <v-data-footer
-                    :pagination="pagination"
-                    :options="options"
-                    @update:options="updateOptions"
-                    items-per-page-text="$vuetify.dataTable.itemsPerPageText"
-                    :items-per-page-options="[2, 4, 10, 20, 50, 100]"
-                  />
-                </template>
-              </v-data-table>
+                <v-simple-table
+                  fixed-header
+                  dense
+                  style="border-radius: 0"
+                  :height="schedulesHeight"
+                >
+                  <template v-slot:default>
+                    <thead>
+                      <tr>
+                        <th class="text-left">
+                          <v-checkbox
+                            :value="selectedAll"
+                            :indeterminate="!(selectedAll || selectedNone)"
+                            @click="toggleGlobalSelection"
+                          ></v-checkbox>
+                        </th>
+                        <th class="text-left">Dates</th>
+                        <th class="text-left">Times</th>
+                        <th class="text-left">Channel Levels</th>
+                        <th class="text-left">Serial Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- @click="handleClick(idx)" -->
+                      <tr v-for="(schedule, idx) in schedules" :key="idx">
+                        <td>
+                          <v-checkbox v-model="selected[idx]"></v-checkbox>
+                        </td>
+                        <td>
+                          {{ schedule.startDate }} - {{ schedule.stopDate }}
+                        </td>
+                        <td>
+                          {{ schedule.startTime }} - {{ schedule.stopTime }}
+                        </td>
+                        <td>{{ schedule.levels.join(",") }}</td>
+                        <td>{{ schedule.serial }}</td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+              </div>
             </v-col>
           </v-row>
         </v-card>
@@ -273,15 +301,20 @@ export default Vue.extend({
     error: false,
     errorMessage: "",
     api: (null as unknown) as api.DefaultApi,
+    schedulesHeight: 0,
   }),
 
   computed: {
-    selectedNotOneSchedule() {
-      return this.selected.length !== 1;
+    selectedOne() {
+      return this.selectedSchedulesFull().length === 1;
     },
 
-    selectedNoSchedule() {
-      return this.selected.length === 0;
+    selectedNone() {
+      return this.selectedSchedulesFull().length === 0;
+    },
+
+    selectedAll() {
+      return this.selectedSchedulesFull().length === this.schedules.length;
     },
   },
 
@@ -298,6 +331,26 @@ export default Vue.extend({
   },
 
   methods: {
+    rightSizeSchedules() {
+      this.schedulesHeight =
+        window.innerHeight -
+        this.$refs.schedulesBinder.getBoundingClientRect().top;
+    },
+
+    selectedSchedulesFull() {
+      return this.selected.flatMap((bool, index) =>
+        bool ? this.schedules[index] : []
+      );
+    },
+
+    toggleGlobalSelection() {
+      if (this.selectedAll) {
+        this.selected = [];
+      } else {
+        this.selected = Array(this.schedules.length).fill(true);
+      }
+    },
+
     createSchedule() {
       this.enterEditingSchedule(true);
     },
@@ -442,15 +495,17 @@ export default Vue.extend({
     },
 
     deleteSchedules() {
-      const selected = this.selectedSchedules();
+      const selected = this.selectedSchedulesIdentifiers();
       this.schedules = this.schedules.filter(
         (schedule: Schedule) => selected.indexOf(schedule.id) === -1
       );
       this.selected = [];
     },
 
-    selectedSchedules() {
-      return this.selected.map((schedule: Schedule) => schedule.id);
+    selectedSchedulesIdentifiers() {
+      return this.selectedSchedulesFull().map(
+        (schedule: Schedule) => schedule.id
+      );
     },
 
     enterEditingSchedule(create: boolean) {
@@ -458,8 +513,8 @@ export default Vue.extend({
         this.schedule = blankSchedule();
         this.editing = true;
       } else {
-        if (this.selected.length === 1) {
-          this.schedule = { ...(this.selected[0] as Schedule) };
+        if (this.selectedSchedulesFull().length === 1) {
+          this.schedule = { ...(this.selectedSchedulesFull()[0] as Schedule) };
           this.editing = true;
         }
       }
