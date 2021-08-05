@@ -6,7 +6,7 @@ FROM node:12.22.1-alpine3.12 as BuildAPI
 COPY ./api /app/api
 WORKDIR /app
 
-RUN npm install -g swagger-cli && \
+RUN npm install -g openapi-types@9.1.0 swagger-cli@4.0.4 && \
     swagger-cli bundle -o /app/api/hw0.json /app/api/hw0.yaml && \
     swagger-cli bundle -o /app/api/hw1.json /app/api/hw1.yaml && \
     swagger-cli bundle -o /app/api/api.json /app/api/api.yaml
