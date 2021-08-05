@@ -78,6 +78,7 @@ WORKDIR /app/core
 RUN go get -d -v && \
     go get -u golang.org/x/lint/golint && \
     golint -set_exit_status ./... && \
+    rm /app/core/assets/.keep && \
     CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -o /app/phytofy
 
 

@@ -78,6 +78,7 @@ WORKDIR /app/core
 RUN go get -d -v && \
     go get -u golang.org/x/lint/golint && \
     golint -set_exit_status ./... && \
+    rm /app/core/assets/.keep && \
     mkdir /app/release && \
     CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o /app/release/phytofy-cli.windows-amd64.exe && \
     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /app/release/phytofy-cli.linux-amd64 && \
