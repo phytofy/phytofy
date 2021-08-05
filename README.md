@@ -60,7 +60,7 @@ To use the OpenAPI to set LED channels' levels run a command like this:
 
     curl -X POST -H "Content-Type: application/json" --data '{"serial": 206001, "payload": {"config": 3, "levels": [0, 0, 100, 0, 0, 0]}}' http://localhost:8080/v1/set-leds-pwm
 
-A small subset of the functionality ([schedule](docs/ui/01.Lighting_Schedules_List.png) [editing](docs/ui/02.Lighting_Schedule_Editing.png) & [irradiance map simulation](docs/ui/03.Irradiance_Map_Simulator.png)) is also exposed as a UI. To access the UI run one of the following commands and go to `http://localhost:8080/`:
+A small subset of the functionality (schedule [listing](docs/ui/01.Lighting_Schedules_List.png) & [editing](docs/ui/02.Lighting_Schedule_Editing.png)) is also exposed as a UI. To access the UI run one of the following commands and go to `http://localhost:8080/`:
 
     docker run -d --network host -p 8080:8080 phytofy-amd64:latest v1-app 8080
     docker run -d --network host -p 8080:8080 phytofy-arm32v7:latest v1-app 8080

@@ -1,5 +1,3 @@
-// +build !js !wasm
-
 // Copyright (c) 2020 OSRAM; Licensed under the MIT license.
 // This code is responsible for controlling an abstract interface to PHYTOFY RL v1
 package main

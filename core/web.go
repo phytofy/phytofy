@@ -1,5 +1,3 @@
-// +build !js !wasm
-
 // Copyright (c) 2020 OSRAM; Licensed under the MIT license.
 // This is the web server script of the application
 package main

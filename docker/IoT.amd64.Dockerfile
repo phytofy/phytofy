@@ -52,16 +52,6 @@ RUN python /app/automation/substitute.py /tmp/licenses.fragment /app/ui/src/view
 RUN rm -rf /app/ui/node_modules
 
 
-# Build irradiance simulator
-FROM golang:1.16.3-alpine3.13 AS BuildIrradiance
-
-COPY ./core /app/core
-
-RUN cd /app/core && \
-    GOOS=js GOARCH=wasm go build -o main.wasm && \
-    cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" ./
-
-
 # Build UI
 FROM node:12.22.1-alpine3.12 as BuildUI
 
@@ -69,8 +59,6 @@ COPY --from=BuildLicensing /app/ui /app/ui
 COPY --from=BuildAPI /app/api/hw0.json /app/ui/public/hw0.json
 COPY --from=BuildAPI /app/api/hw1.json /app/ui/public/hw1.json
 COPY --from=BuildAPI /app/api/api.json /app/ui/public/api.json
-COPY --from=BuildIrradiance /app/core/main.wasm /app/ui/public/main.wasm
-COPY --from=BuildIrradiance /app/core/wasm_exec.js /app/ui/public/wasm_exec.js
 WORKDIR /app
 
 RUN cd /app/ui && \

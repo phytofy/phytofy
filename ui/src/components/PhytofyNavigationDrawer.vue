@@ -29,23 +29,6 @@
       <v-tooltip right>
         <template v-slot:activator="{ on, attrs }">
           <v-list-item
-            to="/simulator"
-            active-class="primary--text"
-            ripple
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-list-item-action>
-              <v-icon>mdi-map-outline</v-icon>
-            </v-list-item-action>
-            <v-list-item-title>Simulator</v-list-item-title>
-          </v-list-item>
-        </template>
-        <span>Simulator</span>
-      </v-tooltip>
-      <v-tooltip right>
-        <template v-slot:activator="{ on, attrs }">
-          <v-list-item
             to="/tools"
             active-class="primary--text"
             ripple

@@ -22,18 +22,6 @@
   <link rel="manifest" href="<%= BASE_URL %>manifest.json" />
   <title>OSRAM PHYTOFY&reg; RL</title>
   <link rel="eula" href="<%= BASE_URL %>eula.html">
-  <link rel="wasm" href="<%= BASE_URL %>main.wasm">
-  <script src="<%= BASE_URL %>wasm_exec.js"></script>
-  <script>
-    window.go = new Go();
-    fetch("main.wasm").then(response =>
-      response.arrayBuffer()
-    ).then(bytes =>
-      WebAssembly.instantiate(bytes, window.go.importObject)
-    ).then(result => {
-      window.go.run(result.instance);
-    });
-  </script>
 </head>
 
 <body>

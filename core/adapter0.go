@@ -1,5 +1,3 @@
-// +build !js !wasm
-
 // Copyright (c) 2020 OSRAM; Licensed under the MIT license.
 // This code is responsible for communication with SBC adapters for PHYTOFY RL v0 (DEPRECATED)
 package main
