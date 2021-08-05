@@ -14,7 +14,6 @@
                       @click="createSchedule"
                       :disabled="!ready"
                       icon
-                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -31,7 +30,6 @@
                       @click="editSchedule"
                       :disabled="!ready || !selectedOne"
                       icon
-                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -48,7 +46,6 @@
                       @click="deleteSchedules"
                       :disabled="!ready || selectedNone"
                       icon
-                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -72,7 +69,6 @@
                       @click="$refs.upload.click()"
                       :disabled="!ready"
                       icon
-                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -89,7 +85,6 @@
                       @click="exportSchedules"
                       :disabled="!ready"
                       icon
-                      small
                       v-bind="attrs"
                       v-on="on"
                     >
@@ -106,7 +101,6 @@
                       @click="applySchedules"
                       :disabled="!ready"
                       icon
-                      small
                       v-bind="attrs"
                       v-on="on"
                     >
