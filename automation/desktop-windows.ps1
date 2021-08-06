@@ -17,9 +17,9 @@ Rename-Item "release\OSRAM - PHYTOFY RL v1 UI Setup $env:RELEASE_VERSION.exe" "O
 gh release upload $env:RELEASE_VERSION "release/OSRAM - PHYTOFY RL v1 UI-$env:RELEASE_VERSION.exe"
 
 Remove-Item -Recurse -Force release
-((Get-Content -path desktop\package.json -Raw) -replace 'v1','v0') | Set-Content -Path desktop\package.json
-((Get-Content -path desktop\package-lock.json -Raw) -replace 'v1','v0') | Set-Content -Path desktop\package-lock.json
-((Get-Content -path desktop\main.json -Raw) -replace 'v1','v0') | Set-Content -Path desktop\main.js
+((Get-Content -path package.json -Raw) -replace 'v1','v0') | Set-Content -Path package.json
+((Get-Content -path package-lock.json -Raw) -replace 'v1','v0') | Set-Content -Path package-lock.json
+((Get-Content -path main.json -Raw) -replace 'v1','v0') | Set-Content -Path main.js
 echo "HW v0"
 npm run package-windows
 

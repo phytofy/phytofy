@@ -21,9 +21,9 @@ echo $GH_API_TOKEN | gh auth login --hostname github.com --with-token
 gh release upload $RELEASE_VERSION "release/OSRAM - PHYTOFY RL v1 UI-$RELEASE_VERSION.AppImage"
 
 rm -rf release
-sed -i "s/v1/v0/g" desktop/package.json
-sed -i "s/v1/v0/g" desktop/package-lock.json
-sed -i "s/v1/v0/g" desktop/main.js
+sed -i "s/v1/v0/g" package.json
+sed -i "s/v1/v0/g" package-lock.json
+sed -i "s/v1/v0/g" main.js
 echo "HW v0"
 npm run package-ubuntu
 
