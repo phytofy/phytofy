@@ -19,7 +19,7 @@ gh release upload $env:RELEASE_VERSION "release/OSRAM - PHYTOFY RL v1 UI-$env:RE
 Remove-Item -Recurse -Force release
 ((Get-Content -path package.json -Raw) -replace 'v1','v0') | Set-Content -Path package.json
 ((Get-Content -path package-lock.json -Raw) -replace 'v1','v0') | Set-Content -Path package-lock.json
-((Get-Content -path main.json -Raw) -replace 'v1','v0') | Set-Content -Path main.js
+((Get-Content -path main.js -Raw) -replace 'v1','v0') | Set-Content -Path main.js
 echo "HW v0"
 npm run package-windows
 
