@@ -19,7 +19,7 @@ COPY ./ui /app/ui
 
 RUN cd /app/ui && \
     npm ci && \
-    npm install -g license-checker && \
+    npm install -g license-checker@25.0.1 && \
     license-checker --json > /app/ui/licensing.js.txt
 
 
