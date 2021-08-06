@@ -10,6 +10,7 @@ sed -i '' "s/0\.0\.0/$RELEASE_VERSION/" desktop/package-lock.json
 
 cd desktop
 npm ci
+echo "HW v1"
 npm run package-macos
 
 brew install gh
@@ -17,9 +18,11 @@ brew install gh
 echo $GH_API_TOKEN | gh auth login --hostname github.com --with-token
 gh release upload $RELEASE_VERSION "release/OSRAM - PHYTOFY RL v1 UI-$RELEASE_VERSION.dmg"
 
+echo "HW v0"
 sed -i '' "s/v1/v0/" desktop/package.json
 sed -i '' "s/v1/v0/" desktop/package-lock.json
 sed -i '' "s/v1/v0/" desktop/main.js
+rm -f release/*
 npm run package-macos
 
 gh release upload $RELEASE_VERSION "release/OSRAM - PHYTOFY RL v0 UI-$RELEASE_VERSION.dmg"
