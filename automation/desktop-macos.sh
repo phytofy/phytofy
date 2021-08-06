@@ -6,6 +6,7 @@ chmod +x desktop/phytofy-cli.exe
 npm i -g electron@11.1.1 electron-builder@22.9.1
 cp ui/public/img/icons/icon512.png desktop/icon.png
 sed -i '' "s/0\.0\.0/$RELEASE_VERSION/" desktop/package.json
+sed -i '' "s/0\.0\.0/$RELEASE_VERSION/" desktop/package-lock.json
 
 cd desktop
 npm ci
@@ -15,3 +16,10 @@ brew install gh
 
 echo $GH_API_TOKEN | gh auth login --hostname github.com --with-token
 gh release upload $RELEASE_VERSION "release/OSRAM - PHYTOFY RL v1 UI-$RELEASE_VERSION.dmg"
+
+sed -i '' "s/v1/v0/" desktop/package.json
+sed -i '' "s/v1/v0/" desktop/package-lock.json
+sed -i '' "s/v1/v0/" desktop/main.js
+npm run package-macos
+
+gh release upload $RELEASE_VERSION "release/OSRAM - PHYTOFY RL v0 UI-$RELEASE_VERSION.dmg"
