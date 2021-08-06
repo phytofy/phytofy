@@ -66,6 +66,7 @@ export type Serials = Array<Serial>;
 
 export type Time = number;
 
+// eslint-disable-next-line
 export const DefaultApiFetchParamCreator = function (configuration?: Configuration) {
     return {
         apiGetSerials(options: any = {}): FetchArgs {
@@ -114,6 +115,7 @@ export const DefaultApiFetchParamCreator = function (configuration?: Configurati
     }
 };
 
+// eslint-disable-next-line
 export const DefaultApiFp = function (configuration?: Configuration) {
     return {
         apiGetSerials(options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<GetSerialsReply> {
@@ -144,6 +146,7 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     }
 };
 
+// eslint-disable-next-line
 export const DefaultApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
     return {
         apiGetSerials(options?: any) {
@@ -157,10 +160,12 @@ export const DefaultApiFactory = function (configuration?: Configuration, fetch?
 };
 
 export class DefaultApi extends BaseAPI {
+    // eslint-disable-next-line
     public apiGetSerials(options?: any) {
         return DefaultApiFp(this.configuration).apiGetSerials(options)(this.fetch, this.basePath);
     }
 
+    // eslint-disable-next-line
     public apiImportSchedules(body: ImportSchedulesRequest, options?: any) {
         return DefaultApiFp(this.configuration).apiImportSchedules(body, options)(this.fetch, this.basePath);
     }
