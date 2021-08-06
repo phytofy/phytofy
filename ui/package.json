@@ -12,10 +12,10 @@
   "dependencies": {
     "@mdi/font": "^5.9.55",
     "@types/d3-dsv": "^3.0.0",
-    "@types/node": "^14.17.9",
+    "@types/node": "^16.4.13",
     "@types/uuid": "^8.3.1",
     "core-js": "^3.16.0",
-    "d3": "^6.7.0",
+    "d3": "^7.0.0",
     "register-service-worker": "^1.7.1",
     "roboto-fontface": "*",
     "uuid": "^8.3.1",
@@ -44,10 +44,10 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.15.1",
-    "sass": "^1.32.8",
-    "sass-loader": "^10.1.1",
+    "sass": "^1.32.13",
+    "sass-loader": "^10.2.0",
     "typescript": "^4.3.5",
-    "vue-cli-plugin-vuetify": "~2.3.1",
+    "vue-cli-plugin-vuetify": "^2.4.2",
     "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.2"
   }
