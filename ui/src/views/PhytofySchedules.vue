@@ -187,7 +187,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Plotly from "plotly.js";
+import { csvParseRows } from "d3-dsv";
 import PhytofySchedule from "@/components/PhytofySchedule.vue";
 import { v4 as uuidv4 } from "uuid";
 import * as api from "../api";
@@ -432,7 +432,7 @@ export default Vue.extend({
         csv += reader.result;
         counter++;
         if (counter == files.length) {
-          this.replaceSchedules(Plotly.d3.csv.parseRows(csv));
+          this.replaceSchedules(csvParseRows(csv));
         }
       };
       files.forEach((entry: File) => {
