@@ -62,6 +62,7 @@ jobs:
         env:
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_TOKEN: ${{ github.token }}
+          REGISTRY_HOST: ghcr.io
           REGISTRY_PREFIX: 'ghcr.io/${{ github.actor }}/phytofy:'
           VERSION_SEPARATOR: '-'
           GH_API_USER: ${{ github.actor }}
