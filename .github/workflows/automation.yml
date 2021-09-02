@@ -24,8 +24,8 @@ jobs:
       - name: Building CLI
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          GH_API_USER: ${{ secrets.GH_API_USER }}
-          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_API_USER: ${{ github.actor }}
+          GH_API_TOKEN: ${{ github.token }}
           RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
           sed -i "s/0\.0\.0/${RELEASE_VERSION}/g" ui/package.json
@@ -39,33 +39,33 @@ jobs:
       - name: Uploading CLI Release
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_API_TOKEN: ${{ github.token }}
           RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
           sudo apt-add-repository https://cli.github.com/packages
           sudo apt update
           sudo apt install gh
-          echo ${GH_API_TOKEN} | gh auth login --hostname github.com --with-token
+          echo ${{ github.token }} | gh auth login --hostname github.com --with-token
           echo ${RELEASE_VERSION} | gh release create ${RELEASE_VERSION}
           gh release upload ${RELEASE_VERSION} release/*
       - name: Issuing Repository Dispatch
         if: startsWith(github.ref, 'refs/tags/')
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.GH_API_TOKEN }}
+          token: ${{ github.token }}
           repository: ${{ github.repository }}
           event-type: electron-wrapping
           client-payload: '{"ref": "${{ github.ref }}", "release_version": "${{ steps.version.outputs.tag }}"}'
       - name: Building IoT
         if: startsWith(github.ref, 'refs/tags/')
         env:
-          REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
-          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
-          REGISTRY_PREFIX: ${{ secrets.REGISTRY_PREFIX }}
-          VERSION_SEPARATOR: ${{ secrets.VERSION_SEPARATOR }}
-          GH_API_USER: ${{ secrets.GH_API_USER }}
-          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          REGISTRY_USER: ${{ github.actor }}
+          REGISTRY_TOKEN: ${{ github.token }}
+          REGISTRY_PREFIX: 'ghcr.io/${{ github.actor }}/phytofy:'
+          VERSION_SEPARATOR: '-'
+          GH_API_USER: ${{ github.actor }}
+          GH_API_TOKEN: ${{ github.token }}
           RELEASE_VERSION: ${{ steps.version.outputs.tag }}
         run: |
           sed -i "s/0\.0\.0/${RELEASE_VERSION}/g" ui/package.json
