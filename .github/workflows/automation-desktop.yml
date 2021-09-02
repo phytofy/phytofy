@@ -29,7 +29,7 @@ jobs:
           node-version: '12'
       - name: Wrapping
         env:
-          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_API_TOKEN: ${{ github.token }}
           GH_REPOSITORY: ${{ github.repository }}
           RELEASE_VERSION: ${{ github.event.client_payload.release_version }}
         run: ${{ matrix.script_name }}
