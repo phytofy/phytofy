@@ -191,17 +191,7 @@ import { csvParseRows } from "d3-dsv";
 import PhytofySchedule from "@/components/PhytofySchedule.vue";
 import { v4 as uuidv4 } from "uuid";
 import * as api from "../api";
-
-interface Schedule {
-  id: string;
-  selected: boolean;
-  startDate: string;
-  stopDate: string;
-  startTime: string;
-  stopTime: string;
-  levels: number[];
-  serial: number | null;
-}
+import { Schedule } from "../store";
 
 const blankSchedule = (): Schedule => ({
   id: uuidv4(),
@@ -261,7 +251,6 @@ export default Vue.extend({
 
   data: () => ({
     schedule: blankSchedule(),
-    schedules: [] as Schedule[],
     headers: [
       {
         text: "Start Date",
@@ -310,21 +299,30 @@ export default Vue.extend({
   }),
 
   computed: {
+    schedules: {
+      get() {
+        return this.$store.state.schedules;
+      },
+      set(schedules) {
+        this.$store.commit("setSchedules", schedules);
+      },
+    },
+
     selectedSchedules() {
-      return filterSelectedSchedules(this.schedules);
+      return filterSelectedSchedules(this.$store.state.schedules);
     },
 
     selectedOne() {
-      return filterSelectedSchedules(this.schedules).length === 1;
+      return filterSelectedSchedules(this.$store.state.schedules).length === 1;
     },
 
     selectedNone() {
-      return filterSelectedSchedules(this.schedules).length === 0;
+      return filterSelectedSchedules(this.$store.state.schedules).length === 0;
     },
 
     selectedAll() {
       return (
-        filterSelectedSchedules(this.schedules).length === this.schedules.length
+        filterSelectedSchedules(this.$store.state.schedules).length === this.$store.state.schedules.length
       );
     },
   },
