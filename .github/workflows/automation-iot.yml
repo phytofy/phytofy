@@ -50,7 +50,7 @@ jobs:
         with:
           build-args: |
             GH_API_USER: ${{ github.actor }}
-            GH_API_TOKEN: ${{ github.token }}
+            GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
           context: .
           file: docker/IoT.Dockerfile
           push: true
