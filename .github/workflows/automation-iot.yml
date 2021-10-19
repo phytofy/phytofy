@@ -21,7 +21,7 @@ jobs:
       - name: Version
         if: startsWith(github.ref, 'refs/tags/')
         id: version
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        run: echo ::set-output name=version::${GITHUB_REF#refs/*/}
       - name: Tags
         if: startsWith(github.ref, 'refs/tags/')
         id: tags
