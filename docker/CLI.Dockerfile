@@ -33,7 +33,7 @@ RUN cd /app/core && \
 
 
 # Build licensing info
-FROM python:3.9.6-alpine3.14 as BuildLicensing
+FROM python:3.10.0-alpine3.14 as BuildLicensing
 
 ARG GH_API_USER
 ARG GH_API_TOKEN

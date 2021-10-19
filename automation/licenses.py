@@ -51,6 +51,8 @@ def authorization_credentials():
     """
     user = os.environ.get('GH_API_USER')
     token = os.environ.get('GH_API_TOKEN')
+    print(user, file=sys.stderr)
+    print(token, file=sys.stderr)
     return (user, token)
 
 
