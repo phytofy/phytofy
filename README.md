@@ -43,14 +43,13 @@ Running the application without any arguments will list all available commands. 
 
 With the following command one can build the Docker container images for arm64 and arm32v7 architectures:
 
-    ./automation/build.iot.sh
+    docker build -t phytofy -f docker/IoT.Dockerfile .
 
 The resulting Docker images will be tagged `phytofy-amd64:latest` and `phytofy-arm32v7:latest`.
 
 To run the OpenAPI locally the following commands can be used:
 
-    docker run -d --network host -p 8080:8080 phytofy-amd64:latest v1-api 8080
-    docker run -d --network host -p 8080:8080 phytofy-arm32v7:latest v1-api 8080
+    docker run -d --network host -p 8080:8080 phytofy v1-api 8080
 
 Note that the `--network host` is necessary for the application to be able to communicate with fixtures.
 
@@ -62,8 +61,7 @@ To use the OpenAPI to set LED channels' levels run a command like this:
 
 A small subset of the functionality (schedule [listing](docs/ui/01.Lighting_Schedules_List.png) & [editing](docs/ui/02.Lighting_Schedule_Editing.png)) is also exposed as a UI. To access the UI run one of the following commands and go to `http://localhost:8080/`:
 
-    docker run -d --network host -p 8080:8080 phytofy-amd64:latest v1-app 8080
-    docker run -d --network host -p 8080:8080 phytofy-arm32v7:latest v1-app 8080
+    docker run -d --network host -p 8080:8080 phytofy v1-app 8080
 
 
 ### Scheduling
@@ -90,8 +88,7 @@ Log rotation scheme is in place with a 64 day long retention period and 100 MB m
 
 If the application runs as a docker container the logs can be stored on the host machine by adding a volume mapping - e.g. `-v $PWD:/logs`:
 
-    docker run -d --network host -p 8080:8080 -v $PWD:/logs phytofy-amd64:latest v1-app 8080
-    docker run -d --network host -p 8080:8080 -v $PWD:/logs phytofy-arm32v7:latest v1-app 8080
+    docker run -d --network host -p 8080:8080 -v $PWD:/logs phytofy v1-app 8080
 
 
 ## OSRAM Horticultural Lighting

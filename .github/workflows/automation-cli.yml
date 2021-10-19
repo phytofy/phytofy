@@ -1,4 +1,4 @@
-name: Automation Script - CLI & IoT
+name: Automation Script - CLI
 
 on: [push]
 
@@ -57,19 +57,3 @@ jobs:
           repository: ${{ github.repository }}
           event-type: electron-wrapping
           client-payload: '{"ref": "${{ github.ref }}", "release_version": "${{ steps.version.outputs.tag }}"}'
-      - name: Building IoT
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_TOKEN: ${{ github.token }}
-          REGISTRY_HOST: ghcr.io
-          REGISTRY_PREFIX: 'ghcr.io/${{ github.actor }}/phytofy:'
-          VERSION_SEPARATOR: '-'
-          GH_API_USER: ${{ github.actor }}
-          GH_API_TOKEN: ${{ github.token }}
-          RELEASE_VERSION: ${{ steps.version.outputs.tag }}
-        run: |
-          sed -i "s/0\.0\.0/${RELEASE_VERSION}/g" ui/package.json
-          /bin/sh automation/build.iot.sh
-          /bin/sh automation/publish.iot.sh
-          rm /home/runner/.docker/config.json

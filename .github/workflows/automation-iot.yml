@@ -1,0 +1,58 @@
+name: Automation Script - IoT
+
+on: [push]
+
+jobs:
+  pipeline:
+    name: Pipeline
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.5
+      - name: Preparing
+        uses: actions/setup-go@v1
+        with:
+          go-version: '1.16.x'
+      - name: Linting
+        run: |
+          go get -u golang.org/x/lint/golint
+          cd core
+          $(which golint 2> /dev/null || echo /home/runner/go/bin/golint) -set_exit_status ./...
+      - name: Version
+        if: startsWith(github.ref, 'refs/tags/')
+        id: version
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Tags
+        if: startsWith(github.ref, 'refs/tags/')
+        id: tags
+        run: |
+          sed -i "s/0\.0\.0/${{ steps.version.outputs.version }}/g" ui/package.json
+          DOCKER_IMAGE='ghcr.io/${{ github.actor }}/phytofy'
+          TAGS="${DOCKER_IMAGE}:${{ steps.version.outputs.version }},${DOCKER_IMAGE}:latest"
+          echo ::set-output name=tags::${TAGS}
+      - name: QEMU
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: docker/setup-qemu-action@v1.2.0
+      - name: Buildx
+        if: startsWith(github.ref, 'refs/tags/')
+        id: buildx
+        uses: docker/setup-buildx-action@v1.6.0
+      - name: Login
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+          registry: ghcr.io
+      - name: Build
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: docker/build-push-action@v2.7.0
+        with:
+          build-args: |
+            GH_API_USER: ${{ github.actor }}
+            GH_API_TOKEN: ${{ github.token }}
+          context: .
+          file: docker/IoT.Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm/v7
+          tags: ${{ steps.tags.outputs.tags }}
