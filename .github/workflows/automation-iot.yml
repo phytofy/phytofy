@@ -49,8 +49,8 @@ jobs:
         uses: docker/build-push-action@v2.7.0
         with:
           build-args: |
-            GH_API_USER: ${{ github.actor }}
-            GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+            GH_API_USER=${{ github.actor }}
+            GH_API_TOKEN=${{ github.token }}
           context: .
           file: docker/IoT.Dockerfile
           push: true
