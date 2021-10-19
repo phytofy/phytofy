@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import sys
+import traceback
 import urllib.parse
 import urllib.request
 
@@ -33,9 +34,11 @@ def get(url, cache, headers=None):
                 result = reply.read().decode('utf-8')
                 break
         except urllib.error.HTTPError:
+            print(traceback.format_exc(), file=sys.stderr)
             print(f'Retrying for {url}', file=sys.stderr)
             continue
         except ssl.SSLEOFError:
+            print(traceback.format_exc(), file=sys.stderr)
             print(f'Retrying for {url}', file=sys.stderr)
             continue
     cache[url] = result
